@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Custom Resource Definition (CRD) :: InfraFleet</title>
+    <link rel="canonical" href="https://i8t.run/resources/custom_resource_definition_crd.html">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../_/css/site.css">
+<link rel="stylesheet" href="../_/css/custom.css">
+<link rel="stylesheet" href="../_/css/code-style.css">
+  </head>
+  <body class="article">
+<div class="navbar">
+<div class="navbar-brand">
+    <a class="navbar-item brand-name" href="https://i8t.run/">InfraFleet Docs</a>
+</div>
+
+<div class="navbar-menu">
+    <div class="navbar-end">
+        <a class="navbar-item" href="https://i8t.run/">Home</a>
+        <a class="navbar-item" href="https://i8t.run/scenarios/index.html">Scenarios</a>
+        <a class="navbar-item" href="https://i8t.run/clusters/kind.html">Clusters</a>
+        <a class="navbar-item" href="https://i8t.run/tools/helm.html">Tools</a>
+<!--        <a class="navbar-item navbar-cta"-->
+<!--           href="https://github.com/esmaeilmirzaee/infrafleet"-->
+<!--           target="_blank"-->
+<!--           rel="noopener noreferrer">Source code</a>-->
+    </div>
+</div>
+</div><div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">InfraFleet</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scenarios/index.html">Scenarios</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scenarios/chart_museum.html">Chart Museum</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../clusters/index.html">Deploy cluster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../clusters/distributions/microk8s.html">MicroK8s</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../clusters/tools/kind.html">Kind</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tools</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/helm.html">Helm</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">InfraFleet</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">InfraFleet</a></div>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">InfraFleet</a></li>
+    <li><a href="custom_resource_definition_crd.html">Custom Resource Definition (CRD)</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/esmaeilmirzaee/worthnotetakingapp/edit/i8t/main/1_projects/2InfraFleet/v2/modules/ROOT/pages/resources/custom_resource_definition_crd.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Custom Resource Definition (CRD)</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="exampleblock text-left">
+<div class="content">
+<div class="paragraph">
+<p>It is a powerful structural blueprint that allows us to extend the core K8s API. A CRD allows us to define our own <strong>custom object type</strong> (e.g., a <code>Database</code>, a <code>TLS</code> certificate, or a <code>BackupSchedule</code>) directly within a system. Once we apply a CRD, the K8s cluster treats our custom object as an official, native resource just like a standard Pod.</p>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Out of the box, K8s only understands a fixed set of built-in objects like <code>Pods</code>, <code>Services</code>, and <code>Deployments</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_does_it_work"><a class="anchor" href="#_how_does_it_work"></a>How does it work?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A CRD works by teaching the K8s API Server a new structural schema using <strong>OpenAPI validation</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/crd_works.png" alt="How does CRD work?">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Definition</strong>: We write a CRD manifest that declares the new object&#8217;s group, version, names, and acceptable configurations (e.g., stating that a <code>Postgres</code> resource must have an integer field called <code>replicas</code>).</p>
+</li>
+<li>
+<p><strong>Registration</strong>: By applying the created blueprint to the cluster. The API Server updates itself and creates new API endpoints(e.g., <code>/apis/://mycomapnt.com</code>).</p>
+</li>
+<li>
+<p><strong>Storage</strong>: When a user submits custom YAML manifests the created new blueprint, the API Server validates the data types. If correct, it saves the object directly into the cluster&#8217;s database (e.g., <code>etcd</code>).</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+A CRD by itself is just a <strong>passive data record</strong> in a database. It doesn&#8217;t do anything. To make it functional, we pair it with a <a href="../resources/custom_controller.adoc">Custom Controller</a> (<a href="../scrutinizing/operators.adoc">the Operator</a>). The Operator continuously watches that data record and provisions real resources (like servers, disks, or code) to match it.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_to_create_and_use_a_crd_step_by_step"><a class="anchor" href="#_how_to_create_and_use_a_crd_step_by_step"></a>How to create and use a CRD (step-by-step)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_definition"><a class="anchor" href="#_definition"></a>Definition</h3>
+<div class="paragraph">
+<p>The following manifest defines a brand-new resource called a <code>Postgres</code>. It mandates that any user trying to create one must specify a string for the engine version and an integer for the replicas.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo &gt;&gt; postgres-crd.yml &lt; "EOF"
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+    name: ://mycompany.com
+spec:
+    group: ://mycompany.com
+    versions:
+        - name: v1
+          served: true
+          storage: true
+          schema:
+            openAPIV3Schema:
+              type: object
+              properties:
+                spec:
+                  type: object
+                  required: ["engineVersion", "replicas"]
+                  properties:
+                    engineVersion:
+                        type: string
+                    replicas:
+                        type: integer
+                        minimum: 1
+                        maximum: 10
+    scope: Namespaced
+    names:
+      plural: postgresclusters
+      singular: postgrescluster
+      kind: PostgresCluster
+      shortNames:
+      - pg
+EOF
+kubectl apply -f postgres-crd.yml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_custom_resource_cr_creation_using_the_blueprint"><a class="anchor" href="#_custom_resource_cr_creation_using_the_blueprint"></a>Custom Resource (CR) creation (Using the blueprint)</h3>
+<div class="paragraph">
+<p>After applying <code>postgres-crd.yml</code>, our cluster knows what a <code>PostgresCluster</code> is.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo &gt;&gt; my-db-insance.yml &lt; 'EOF'
+apiVersion: ://mycompany.com
+kind: PostgresCluster
+metadata:
+    name: production-db
+spec:
+    engineVersion: "16.2"
+    replicas: 1
+EOF
+kubectl apply --filename my-db-instacnce.yml</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting"><a class="anchor" href="#_troubleshooting"></a>Troubleshooting</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>List all registered CRDs in the cluster</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get crds</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Inspect the exact validation schema of your new CRD:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl describe crd ://mycompany.com</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>List individual instances of our new custom object:
+<em>We can use plural, singular, and short form of the resource</em></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get pg</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>View details of a specific custom instance:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl describe pg production-db</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Applying an invalid custom resource manifest (e.g., passing more than 10 replicas or using string in place of integer) instantly will be rejected with a validation error by API server preventing corrupt configuration receiving to oue cluster.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+It is possible to override or update the values inside a CRD---for example, minimum and maximum number of replicas. However, since a CRD defines the global structural schema for the entire cluster, we must follows specific rules to make these structural changes safely.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Changing CRD file (the declarative way; recommended): Applying the CRD after the changes</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># postgres-crd.yml (updated snippet)
+properties:
+    replicas:
+        type: integer
+        minimum: 1
+        maximum: 10</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Quick fix (the direct imperative): In this way we update the live YAML spec in our editor of choice after saving and exiting our editor. API Server instantly updates itself.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl edit crd ://mycompany.com</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="_critical_production_look_around"><a class="anchor" href="#_critical_production_look_around"></a>⚠️ Critical production look around</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Existing Custom Resource are <strong>NOT</strong> automatically validated on change. For example, the number of replicas is stored in <code>etcd</code>, and changes to the main CRD won&#8217;t update it.</p>
+</li>
+<li>
+<p>Future updates are <em>blocked</em>: the future request on update or change on an active cluster fails if it violates the updated CRDs definitions.</p>
+</li>
+<li>
+<p>Consistency between controller and CRDs: if the Operator code hardcoded a variable changing the definition in CRD won&#8217;t work until the Operator&#8217;s binary code respects the new limitations.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

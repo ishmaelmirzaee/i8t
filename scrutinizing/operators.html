@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kubernetes Operators :: InfraFleet</title>
+    <link rel="canonical" href="https://i8t.run/scrutinizing/operators.html">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../_/css/site.css">
+<link rel="stylesheet" href="../_/css/custom.css">
+<link rel="stylesheet" href="../_/css/code-style.css">
+  </head>
+  <body class="article">
+<div class="navbar">
+<div class="navbar-brand">
+    <a class="navbar-item brand-name" href="https://i8t.run/">InfraFleet Docs</a>
+</div>
+
+<div class="navbar-menu">
+    <div class="navbar-end">
+        <a class="navbar-item" href="https://i8t.run/">Home</a>
+        <a class="navbar-item" href="https://i8t.run/scenarios/index.html">Scenarios</a>
+        <a class="navbar-item" href="https://i8t.run/clusters/kind.html">Clusters</a>
+        <a class="navbar-item" href="https://i8t.run/tools/helm.html">Tools</a>
+<!--        <a class="navbar-item navbar-cta"-->
+<!--           href="https://github.com/esmaeilmirzaee/infrafleet"-->
+<!--           target="_blank"-->
+<!--           rel="noopener noreferrer">Source code</a>-->
+    </div>
+</div>
+</div><div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">InfraFleet</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scenarios/index.html">Scenarios</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scenarios/chart_museum.html">Chart Museum</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../clusters/index.html">Deploy cluster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../clusters/distributions/microk8s.html">MicroK8s</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../clusters/tools/kind.html">Kind</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tools</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/helm.html">Helm</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">InfraFleet</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">InfraFleet</a></div>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">InfraFleet</a></li>
+    <li><a href="operators.html">Kubernetes Operators</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/esmaeilmirzaee/worthnotetakingapp/edit/i8t/main/1_projects/2InfraFleet/v2/modules/ROOT/pages/scrutinizing/operators.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Kubernetes Operators</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>In the following section all I&#8217;m trying to do is understanding what the heck is Kubernetes Operators, what do they do, if they are missing is there something else could replace them. How do they differ from <code>Helm</code>, <code>Controller</code> and even a simple manifest file.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Kubernetes Operator is a specialized, advanced extension of a controller. It combines a custom controller with <a href="../resources/crd.adoc"><strong>Custom Resource Definitions (CRDs)</strong></a> to encapsulate human operational knowledge (e.g., how to back up a database or handle a failover) into automated code.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/k8s_operator.png" alt="K8s Operator">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_google_gemini"><a class="anchor" href="#_google_gemini"></a>Google Gemini</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>K8s operators are software extensions that use K8s API and custom control loops to automate the deployment, scaling, and life-cycle management of complex applications.</p>
+</div>
+<div class="sect2">
+<h3 id="_how_do_they_work"><a class="anchor" href="#_how_do_they_work"></a>How do they work:</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Custom Resource Definition (CRDs)</dt>
+<dd>
+<p>define new, application-specific object types in the K8s API.</p>
+</dd>
+<dt class="hdlist1">Custom Controllers</dt>
+<dd>
+<p>Run as loops that continuously watch the actual state of your cluster and compare it against the desired state defined in the custom resources, fixing differences automatically.</p>
+</dd>
+<dt class="hdlist1">Day-2 Operations</dt>
+<dd>
+<p>Handle complex tasks like automated backups, failovers, upgrades, and scaling without manual intervention.</p>
+</dd>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Resources</caption>
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 88.8889%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Title</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://kubernetes.io/docs/concepts/extend-kubernetes/operator/">Official documentation</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The core architecture and concepts plus design principles.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/calvin-puram/awesome-kubernetes-operator-resources/">Awesome K8s Operator resources</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A community curated list of comprehensive list of SDKs, frameworks, and tutorials.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://operatorhub.io/">Operator marketplace</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explore to discover and install pre-installed operators for custom databases, monitoring tools, and services.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_me"><a class="anchor" href="#_me"></a>ME</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is a software extension.
+It uses the <a href="">K8s API</a> and custom control loop.
+It automates the deployment, scaling, and life-cycle management of complex applications.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cloud_native_operators"><a class="anchor" href="#_cloud_native_operators"></a>Cloud-native operators</h2>
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>In the cloud-native ecosystem, there are a list of Operators can be used to achieve to the day-2 operations. In the following list, I share my experience regarding those Operators.</p>
+</div>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. The ultimate K8s operator matrix</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Operator</th>
+<th class="tableblock halign-left valign-top">Primary/Focus</th>
+<th class="tableblock halign-left valign-top">Workload type</th>
+<th class="tableblock halign-left valign-top">Key system advantage</th>
+<th class="tableblock halign-left valign-top">Core Day-2 operations automated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top" colspan="5"><p class="tableblock"><strong>Security</strong></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://cert-manager.org">cert-manager</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security/TLS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Certificate lifecycle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Automated X.509 issuance and zero-downtime renewals</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Proactive certificate renewal loops, ACME challenge solving, and Secret rotation tracking</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" colspan="5"><p class="tableblock"><strong>Relational database</strong></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://cert-manager.org">Crunchy Postgres (PGO)</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Relational database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stateful (PostgreSQL)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Production-ready high availability (Patroni) and PITR backups</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pgBackRest orchestration, automated failover voting, Point-In-Time Recovery (PITR), and minor-version rolling updates</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://cert-manager.org">CloudNativePG</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Relational Database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stateful (PostgreSQL)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Modern DevOps-native design relying on K8s replication instead of external tools</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native standard declarative backup schedules, switchover/failover orchestration, and seamless online database scaling.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://cert-manager.org">Zalando Postgres</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Relational Database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stateful (PostgreSQL)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Infrastructure-focus Spilo clusters tailored for AWS/GCP backends</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WAL-E/WAL-G cloud storage log shipping, database cloning, and automated connection pooling via Pgbouncer</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://po.i">Oracle/Percona MySQL</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Relational Database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stateful (MySQL Engine)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Manages complex InnoDB cluster consensus and proxy router routing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Automated physical back-ups, replication lag tracking, proxy router repointing, and safe master pod failovers</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://p.i">MariaDB</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Relational Database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stateful (MariaDB Engine)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Streamlines declarative schema bootstrapping and replication topologies</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declarative SQL script execution, Galera Cluster replication monitoring, and automated backup bucket syncs.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="5"><p class="tableblock">Monitoring and observability</p></th>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://cert-manager.org">Prometheus</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Observability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Monitoring engine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implements Monitoring-as-Code via dynamic target scraping</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hot-reloading configurations, shard management for heavy scrape loads, and Alertmanager routing adjustments</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://sds.sdd">Elastic Cloud (ECK)</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Log search &amp; analytics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Semi-structured documents</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Automates shared routing, hot/warm tiers, and Kibana clustering</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Index Lifecycle Management (ILM), automatic shard reallocation, snapshot repository mapping (S3/GCS), and cluster rolling restarts</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="5"><p class="tableblock">NoSQL</p></th>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://cert-manager.org">Opstree Redis</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In-Memory Cache</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Key-Value store</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Automated Sentinel elections and sub-millisecond failover routing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Redis Sentinel master promotion, slot re-sharding for cluster mode, and configuration updates of persistent AOF/RDB files</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[CockroachDB]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Distributed SQL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Globally consistent data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Out-of-the-box multi-region horizontal scaling with ACID compliance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multi-region node balancing, automated range splitting, cluster localization tweaks, and zero-downtime software migrations</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[etcd]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Distributed key-value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Critical configuration/state</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Coordinates cluster state locking, snapshot restorations, and quorum health</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quorum resizing, snapshot compaction, defragmentation, and membership recovery if cluster split-brain occurs</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[MongoDB]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoSQL document store</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON/BSON data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Manages complex replica sets, shard keys, and live resizing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Replica set election management, sharded cluster balancing, storage resizing without downtime, and point-in-time snapshot restorations</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Cassandra]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NoSQL columnar database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High-throughput write stor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Handles token ring topologies, node repairs, and keyspace scaling</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Token ring anti-entropy repairs, nodetool automation, cluster keyspace scaling, and rolling topology patches</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="5"><p class="tableblock">Storage, disk, data store</p></th>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://cert-manager.org">Rook Ceph</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unified storage infrastructure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Raw disk orchestration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Turns bare-metal unformatted drives into block, file, and object storage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Disk replacement workflows, automated data rebalancing, cluster resizing, and deep hardware health checks</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://cert-manager.org">MinIO</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object Storage-as-a-Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multi-Tenant S3 API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High-performance, isolated, software defined S3 cloud endpoints</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Online drive capacity expansion, programmatic multi-tenant IAM rotation, and zero-downtime tenant upgrades</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="5"><p class="tableblock">Routing, DNS, and Tools</p></th>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://cert-manager.org">Ansible Galaxy</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Automation Blueprinting</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Framework/Tooling</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not an application operator; it packages Ansible roles to build operators</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Re-running continuous reconciliation loops for custom legacy apps, and upgrading without downtime, and point-in-time snapshot restorations</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://c.c">Red Hat DNS</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Network infrastructure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Core cluster routing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Manages CoreDNS instances natively inside Red Hat OpenShift environments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dynamic upstream nameserver routing updates, cache tuning adjustments, and CoreDNS scaling depending on network load</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://c.a">Kong Gateway</a></p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Traffic routing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API Ingress controller</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Translates K8s Ingress resources into dynamic gateway plugins</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hot-reloading proxy configurations, syncing routing cache stores, and zero-downtime plug-in enforcement updates</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. How operators can stack up</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Operators</p></th>
+<th class="tableblock halign-center valign-top" colspan="3"><p class="tableblock">Feature/Aspect</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<th class="tableblock halign-center valign-top"><p class="tableblock">Primary focus</p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock">Complexity level</p></th>
+<th class="tableblock halign-center valign-top"><p class="tableblock">Key advantage</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cert-manager</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security &amp; encryption (TLS)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lightweight</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Eliminates manual certificate renewals</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Crunch Postgres (PGO)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data storage &amp; persistence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extremely high (Stateful)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Safe database failovers without data loss</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prometheus</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cluster &amp; app observability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Moderate to high</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implements <mark>monitoring as code</mark></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="4"></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock">Storage</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" colspan="4"><p class="tableblock">Feature/aspect</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Storage paradigm</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Hardware layer</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Complexity &amp; footpring</p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Best used for</p></th>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock">Rook Ceph</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Unified</strong>: Block, FIle, and Object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consumes )raw, unformatted disks_</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Heavy. Requires massive compute resources and a minimum of 3 nodes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Running on bare-metal/on-prem infrastructure where we need to build our own robust <strong>EBS/EFS</strong> equivalent.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="4"><p class="tableblock">MinIO</p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Object storage</strong> only (strictly S3 API)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consumes <strong>existing StorageClasses</strong> (formatted volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lightweight and highly streamlined.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Providing lightning-fast S3 endpoints for machine learning pipelines, log targets, or media storage.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="4"><p class="tableblock"><strong>Opinions on online forums like r/Kubernetes highlight that some engineering teams actually run both together. Because <code>Ceph</code>\'s native object gateway (RGW) can occasionally be clunky to administer, users sometimes deploy a lightweight <strong>MinIO instance as an S3 fronted gateway</strong> backed directly by high-performance <strong>Rook-Ceph block volumes</strong>.</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_certmanager"><a class="anchor" href="#_certmanager"></a><code>CertManager</code></h3>
+<div class="paragraph">
+<p>The <a href="https://cert-manager.io">cert-manager Operator</a> automates <strong>X.509 certificate management</strong>. It ensures applications have valid TLS certificates and automatically renews them before they expire.</p>
+</div>
+<div class="paragraph">
+<p>In <code>CertManager</code>,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the difference between an <code>Issuer</code> and a <code>ClusterIssuer</code> comes down entirely to <strong>scope and access control</strong></p>
+</li>
+<li>
+<p>the <code>desired state</code> of a certificate <strong>defines its exact technical configuration</strong></p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. <code>Issuer</code> vs. <code>ClusterIssuer</code></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Feature</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>Issuer</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>ClusterIssuer</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Scope</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Namespaced</strong> (lives inside a specific namespace)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cluster-scope</strong> (global across the entire cluster)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Accessibility</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Can <em>only</em> issue certificates for secrets in the <strong>same namespace</strong>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Can issue certificates for secrets in <strong>any namespace</strong>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Use case</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>best</strong> for multi-tenant clusters where different teams or applications manage their own separate credentials and domains.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Best for global, shared cluster infrastructure like automated <code>Ingress</code> controllers (e.g., Let&#8217;s Encrypt production certificate)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Manifest Kind</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>kind: Issuer</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>kind: ClusterIssuer</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_the_desired_state_of_certificates"><a class="anchor" href="#_the_desired_state_of_certificates"></a>The desired state of certificates</h3>
+<div class="paragraph">
+<p>In K8s, the operator pattern relies on declarative configuration. When we create a <code>Certificate</code> custom resource, we are telling <code>cert-manager</code> the <strong>desired state</strong> we want it to maintain. So, when anything <em>deviates</em> from this blueprint (such as an expiration window approaching), the <code>cert-manager</code> operator intercepts it and takes corrective action.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Key components of desired states</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Secret Binding (<code>secretName</code>)</strong> specifies the exact name of the K8s <code>Secret</code> where <code>cert-manager</code> should inject and keep the private key and signed certificate data.</p>
+</li>
+<li>
+<p><strong>Identity &amp; domains (<code>dnsNames</code>/<code>ipAddresses</code>)</strong> defines the list of <strong>Subject Alternative Names (SANs)</strong> or <strong>IP addresses</strong> the certificate is explicitly authorized to secure (e.g., <code>://example.com</code>).</p>
+</li>
+<li>
+<p><strong>The Authority (<code>issuerRef</code>)</strong> points to the specific <code>Issuer</code> or <code>ClusterIssuer</code> that might sign the certificate request.</p>
+</li>
+<li>
+<p><strong>Lifespan Constraints (<code>duration</code> &amp; <code>renewBefore</code>)</strong> defines how long the certificate should be valid (e.g., 90 days) and exactly how close to expiration <code>cert-manager</code> should proactively step in to trigger an <strong>automated renewal loop</strong> (e.g., renew 15 days before expiration).</p>
+</li>
+<li>
+<p><strong>Technical Specs (<code>privateKey</code>)</strong> configures cryptographic preferences, specifying whether to use an RSA or ECDSA algorithm and the corresponding key size or curve.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Core Custom Resources (CRDs)</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Issuer</code> or <code>ClusterIssuer</code> defines where to get certificates. For example, <a href="https://lets-encrypt.org">Let&#8217;s Encrypt</a>, <a href="https://hasi-coprt.vault">HashiCorp Vault</a>, or private PKI.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Certificate</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Defines the desired state of a certificate such as domains, secret name, and validity duration.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect3">
+<h4 id="_day_2_operations"><a class="anchor" href="#_day_2_operations"></a>Day-2 operations</h4>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-square-o"></i> It watches the <code>certificate</code> objects</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Automatically completes domain verification challenges (HTTP-01 or DNS-01)</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Pulls down the signed certificates</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Mounts them seamlessly into the K8s secrets</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_database_sql_and_nosql"><a class="anchor" href="#_database_sql_and_nosql"></a>Database (SQL and NoSQL)</h3>
+<div class="sect3">
+<h4 id="_cloudnative_pg"><a class="anchor" href="#_cloudnative_pg"></a><code>CloudNative PG</code></h4>
+<div class="sect4">
+<h5 id="_day_2_operations_2"><a class="anchor" href="#_day_2_operations_2"></a>Day-2 operations</h5>
+
+</div>
+</div>
+<div class="sect3">
+<h4 id="_crunchy_postgres_for_kubernetes_pgo"><a class="anchor" href="#_crunchy_postgres_for_kubernetes_pgo"></a><code>Crunchy Postgres for Kubernetes (PGO)</code></h4>
+<div class="paragraph">
+<p>The <a href="https://crunchydata.com/products/crunchy-postgresql-for-kubernetes">Crunchy Postgres Operator</a> handles the complex lifecycle of <strong>production-ready PostgresSQL databases</strong>. #Databases are stateful, making them notorious to scale and manage in an <code>ephemeral environment</code> like K8s.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Core Custom Resources (CRDs)</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>PostgresCluster</code> represents an entire multi-node database architecture.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_day_2_operations_3"><a class="anchor" href="#_day_2_operations_3"></a>Day-2 operations</h5>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-square-o"></i> Using <code>Patroni</code> for <mark>automated high availability and self-healing failovers</mark>.</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Promoting a replica seamlessly when a primary database node fails.</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Managing automated <code>pgBackRest</code> backups</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> point-in-time recovery (PITR)</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> zero-downtime rolling upgrades</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_oracle_mysql_operator_for_k8s"><a class="anchor" href="#_oracle_mysql_operator_for_k8s"></a><code>Oracle MySQL Operator for K8s</code></h4>
+<div class="paragraph">
+<p>Official engine for InnoDB clusters and the <strong>Percona Operator for MySQL</strong> is the enterprise-grade open-source option are the main platforms. The official operator centers on structural stability {question}. It sets up a localized <strong>MySQL Router</strong> proxy pod alongside an <strong>InnoDB Cluster</strong>. Applications point to the Router, while the operator handles the heavy lifting underneath: monitoring replication lag, managing active primary/replica databases, and orchestrating failovers without risking transactional database corruption.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. Oracle MySQL Operator</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Feature/Aspect</th>
+<th class="tableblock halign-left valign-top">Oracle MySQL Operator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Primary workload type</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Heavily structured, transactional relational data (ACID compliant).)</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">High availability architecture</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>InnoDB Cluster</strong> with group replication and MySQL router.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Storage requirements</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High disk footprint with absolute strictness on write consistency</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Day-2 backup automation</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fully automated volume snapshots or logical/physical backups</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Topology flexibility</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Supports global, namespace-scoped, or single standalone setups</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_opstree_redis"><a class="anchor" href="#_opstree_redis"></a>Opstree Redis</h4>
+<div class="paragraph">
+<p>For the open-source architecture <code>Opstree</code> is the dominant choice. The <code>Redis Enterprise Operator</code> (commercial or hybrid) are the industry leaders. Since Redis is in-memory, the operator is optimized for speed and scaling boundaries rather than complex data formatting. It streamlines setting up <strong>Redis Sentinel</strong> arrays---meaning if our primary master pod fails, the operator manages the automated voting infrastructure to elect a new master pod withing milliseconds and updates our application&#8217;s routing proxy instantly.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. Opstree Redis Operator</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Feature/Aspect</th>
+<th class="tableblock halign-left valign-top">Opstree Redis Operator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Primary workload type</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High-speed, in-memory caching and key-value store</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">High availability architecture</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Sentinel Mode</strong> (replication failover) or <strong>Cluster Mode</strong> (native sharding)</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Storage requirements</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low disk, massive <strong>RAM dependency</strong>. Can safely leverage ephemeral local NVMe.</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Day-2 backup automation</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RDB and AOF persistence configuration orchestration</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Topology flexibility</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployable as cluster-wide or namespace-scoped</p></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_monitoring_and_observability"><a class="anchor" href="#_monitoring_and_observability"></a>Monitoring and observability</h3>
+<div class="sect3">
+<h4 id="_elk_stack_elastic_cloud_on_k8s_eck"><a class="anchor" href="#_elk_stack_elastic_cloud_on_k8s_eck"></a><code>ELK Stack | Elastic cloud on K8s (ECK)</code></h4>
+<div class="paragraph">
+<p>It is the official operator created and maintained by <a href="https://elastic.io">Elastic</a>. It handles the entire suite: ElasticSearch, Kibana, APM Server, Beats, and Logstash. It operates as an endlessly looping Site Reliability Engineer for our search cluster. Since ElasticSearch components rely heavily on each other, ECK coordinates the rolling upgrade of data shards across individual nodes so that our application query speed never drop during a patch. It natively configures secure mTLS between Kibana, Logstash, and our ElasticSearch cluster seamlessly out of the box.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. Elastic Cloud on K8s (ECK)</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Feature/Aspect</th>
+<th class="tableblock halign-left valign-top">Opstree Redis Operator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Primary workload type</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Semi-structured data, log analytics, full-text search</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">High availability architecture</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native master/data node sharding and replica indices</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Storage requirements</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Massive disk footprints. Relies on fast network/local block storage</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Day-2 backup automation</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Snapshot repositories directly integrated to S3, GCS, or MinIO</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Topology flexibility</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Can deploy global operators or scope down to a namespace</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_zabbix"><a class="anchor" href="#_zabbix"></a><code>Zabbix</code></h4>
+
+</div>
+<div class="sect3">
+<h4 id="_prometheus"><a class="anchor" href="#_prometheus"></a><code>Prometheus</code></h4>
+<div class="paragraph">
+<p><a href="https://prometheus-operator.dev/docs/getting-started/introduction">Prometheus Operator</a> simplifies the deployment and management of <code>Prometheus-based monitoring stacks</code>. <mark>In a raw setup, keeping target scraping configurations updated as pods spin up and down is difficult</mark>.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Core Custom Resources (CRDs)</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Prometheus</code> configures the core monitoring engine (replicas, storage retention, sharding).</p>
+</li>
+<li>
+<p><code>ServiceMonitor</code>/<code>PodMonitor</code> tells Prometheus which K8s services/pods to dynamically discover and scrape for metrics using simple label selectors.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_day_2_operations_4"><a class="anchor" href="#_day_2_operations_4"></a>Day-2 operations</h5>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-square-o"></i> Instead of <code>prometheus.yml</code>, we write simple K8s manifests. The operator watches pods, automatically hooks them up to the scraping engine, handles high availability, and seamlessly reloads the Prometheus instances when targets change.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_storage_persistent_data"><a class="anchor" href="#_storage_persistent_data"></a>Storage (persistent data)</h3>
+<div class="sect3">
+<h4 id="_rook_ceph"><a class="anchor" href="#_rook_ceph"></a><code>Rook Ceph</code></h4>
+<div class="paragraph">
+<p>The <a href="https://rook.io/">Rook Operator</a> acts as a cloud-native storage orchestrator. Its most stable and primary blueprint turns <code>Ceph</code> into a self-managing K8s service.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Core Custom Resources (CRDs)</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CephCluster</code></p>
+</li>
+<li>
+<p><code>CephBlockPool</code></p>
+</li>
+<li>
+<p><code>CephFilesystem</code></p>
+</li>
+<li>
+<p><code>CephObjectStore</code></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_day_2_operations_5"><a class="anchor" href="#_day_2_operations_5"></a>Day-2 operations</h5>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-square-o"></i> Rook provisions raw, unformatted physical hard drives (<code>EBS</code> volumes or local <code>NVMe</code> disks) attached to a cluster nodes and spins up daemons (<code>MONs</code>, <code>OSDs</code>, and <code>MGRs</code>) to manage them</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Handles disk replacement</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Auto-healing re-replication if a node failes</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Zero-downtime Ceph upgrades</p>
+</li>
+</ul>
+</div>
+<hr>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Storage provided (unified storage)</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Block storage (<code>RWO</code> for standard apps)</p>
+</li>
+<li>
+<p>Shared File storage (<code>RWX</code> for multi-pod access)</p>
+</li>
+<li>
+<p><code>S3-compatible</code> Object storage</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_minio"><a class="anchor" href="#_minio"></a><code>MinIO</code></h4>
+<div class="paragraph">
+<p>The <a href="https://operator.min.io/">MinIO Operator</a> is a first-party tool built to deliver <strong>multi-tenant Object Storage-as-a-Service</strong>. <mark>Unlike <code>Rook</code>, <code>MinIO</code> does not try to manage low-level raw disks or provide block/file storage</mark>; <em>it focuses on entirely on high-performance, S3-compatible object APIs</em>.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Core Custom Resources (CRDs)</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Tenant</code>??</p>
+</li>
+<li>
+<p>In specialized enterprise AIStor versions, <code>ObjectStore</code></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect4">
+<h5 id="_day_2_operations_6"><a class="anchor" href="#_day_2_operations_6"></a>Day-2 operations</h5>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-square-o"></i> Isolating storage clusters by namespaces into independent "Tenants"</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Declaring a Tenant</p>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-square-o"></i> Building the necessary <code>StatefulSets</code>,</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Configuring network routing</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Handling <code>mTLS</code> encryption keys internally via automated certificate management</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Managing capacity scaling/expansion without downtime</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_s3_compatible_object_storage"><a class="anchor" href="#_s3_compatible_object_storage"></a>S3-Compatible object storage</h5>
+<div class="paragraph">
+<p>"S3-Compatible" means a storage system uses the exact same Application Programming Interface (API) that Amazon Simple Storage Service (AWS S3) invented.</p>
+</div>
+<div class="paragraph">
+<p>Object storage treats data as flat "objects" bundled with unique IDs and metadata; instead of organizing them into a rigid hierarchy of folders, subfolders, and files (e.g., a PC&#8217;s hard drive).</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Why S3-Compatibility matters</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>No vendor lock-in</strong>: Code written to talk to S3-compatible API can talk to others without any required changes; AWS S3, MinIO cluster, or RookCeph.</p>
+</li>
+<li>
+<p><strong>The industry standard</strong>: Nearly every modern cloud-native application, database backup tools (like <code>pgBackRest</code> or <code>Velero</code>), and AI/ML pipeline (like KubeFlow or MLflow) expects an S3 endpoint out of the box.</p>
+</li>
+<li>
+<p><strong>Standardized actions</strong>: Applications communicate using predictable HTTP verbs (<code>GET</code>, <code>PUT</code>, <code>DELETE</code>) over the standard web protocols.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_multi_tenant_object_storage_as_a_service"><a class="anchor" href="#_multi_tenant_object_storage_as_a_service"></a>Multi-tenant object storage-as-a-service</h5>
+<div class="paragraph">
+<p>Multi-tenancy means a single underlying piece of infrastructure is divided up to serve multiple independent users, teams, or applications (the "tenants"). Providing this "as-a-service" means that provisioning, scaling, and meaning these environments is fully automated.</p>
+</div>
+<div class="paragraph">
+<p>Operators ensures the following three boundaries when delivering a multi-tenant object storage-as-a-service:</p>
+</div>
+<div class="sect5">
+<h6 id="_cryptographic_logic_isolation"><a class="anchor" href="#_cryptographic_logic_isolation"></a>🔒Cryptographic &amp; logic isolation:</h6>
+<div class="paragraph">
+<p>Each tenant likes as their entire storage system. They cannot access the resources of other tenants; buckets, objects. The Operator implements it by creating different K8s namespaces, separating storage access keys, and distinct IAM policies.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_performance_resource_quotas"><a class="anchor" href="#_performance_resource_quotas"></a>📊Performance &amp; resource quotas:</h6>
+<div class="paragraph">
+<p>A single runaway application shouldn&#8217;t crash the storage for everyone else. Multi-tenant operators allow cluster administrators to set strict limits on:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Capacity</strong>: Each tenant can store up to the specified limits; Tenant A stores up to 500GB.</p>
+</li>
+<li>
+<p><strong>Compute</strong>: Restricting the RAM and CPU cores dedicated to a specific tenant&#8217;s storage controllers.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_independent_upgrades_lifecycles"><a class="anchor" href="#_independent_upgrades_lifecycles"></a>🛟Independent upgrades &amp; lifecycles:</h6>
+<div class="paragraph">
+<p>The operator treats tenants as decoupled custom resources (like <code>MinIO&#8217;s `Tenant</code> CRD), we can upgrade the software version or expand the storage capacity of Tenant A&#8217;s cluster without causing a single second of downtime for other tenants.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Storage provided (Pure object storage)</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>It consumes already-formatted underlying K8s <code>StorageClasses</code> and wraps them into an ultra-fast S3 API.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

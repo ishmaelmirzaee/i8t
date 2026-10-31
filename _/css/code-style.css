@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* =========================================
+   LIGHT MODE
+   ========================================= */
+
+html:not(.dark-theme) .doc .listingblock pre,
+html:not(.dark-theme) .doc .listingblock pre code {
+    background-color: #f5f7fa;
+    color: #263238;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    font-weight: 400;
+    border: 1px solid olive;
+}
+
+html:not(.dark-theme) .doc .listingblock pre {
+    border: 1px solid #dce2e8;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+/* Highlight.js */
+html:not(.dark-theme) .doc .listingblock .hljs {
+    background-color: #f5f7fa;
+    color: #263238;
+}
+
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+html.dark-theme .doc .listingblock pre,
+html.dark-theme .doc .listingblock pre code {
+    background-color: #1e293b;
+    color: #e2e8f0;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    font-weight: 400;
+    border: 1px solid mediumvioletred;
+}
+
+html.dark-theme .doc .listingblock pre {
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+/* Highlight.js */
+html.dark-theme .doc .listingblock .hljs {
+    background-color: #1e293b;
+    color: #e2e8f0;
+}
+
+
+/* Light mode */
+html:not(.dark-theme) .hljs-keyword {
+    color: #8250df;
+}
+
+html:not(.dark-theme) .hljs-string {
+    color: #0a7d36;
+}
+
+html:not(.dark-theme) .hljs-comment {
+    color: #8c959f;
+}
+
+html:not(.dark-theme) .hljs-number {
+    color: #0550ae;
+}
+
+html:not(.dark-theme) .hljs-title,
+html:not(.dark-theme) .hljs-function {
+    color: #0969da;
+}
+
+
+/* Dark mode */
+html.dark-theme .hljs-keyword {
+    color: #c792ea;
+}
+
+html.dark-theme .hljs-string {
+    color: #c3e88d;
+}
+
+html.dark-theme .hljs-comment {
+    color: #8292a6;
+}
+
+html.dark-theme .hljs-number {
+    color: #f78c6c;
+}
+
+html.dark-theme .hljs-title,
+html.dark-theme .hljs-function {
+    color: #82aaff;
+}

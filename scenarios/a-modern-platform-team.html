@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>A modern platform team :: InfraFleet</title>
+    <link rel="canonical" href="https://i8t.run/scenarios/a-modern-platform-team.html">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../_/css/site.css">
+<link rel="stylesheet" href="../_/css/custom.css">
+<link rel="stylesheet" href="../_/css/code-style.css">
+  </head>
+  <body class="article">
+<div class="navbar">
+<div class="navbar-brand">
+    <a class="navbar-item brand-name" href="https://i8t.run/">InfraFleet Docs</a>
+</div>
+
+<div class="navbar-menu">
+    <div class="navbar-end">
+        <a class="navbar-item" href="https://i8t.run/">Home</a>
+        <a class="navbar-item" href="https://i8t.run/scenarios/index.html">Scenarios</a>
+        <a class="navbar-item" href="https://i8t.run/clusters/kind.html">Clusters</a>
+        <a class="navbar-item" href="https://i8t.run/tools/helm.html">Tools</a>
+<!--        <a class="navbar-item navbar-cta"-->
+<!--           href="https://github.com/esmaeilmirzaee/infrafleet"-->
+<!--           target="_blank"-->
+<!--           rel="noopener noreferrer">Source code</a>-->
+    </div>
+</div>
+</div><div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">InfraFleet</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Scenarios</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="chart_museum.html">Chart Museum</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../clusters/index.html">Deploy cluster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../clusters/distributions/microk8s.html">MicroK8s</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../clusters/tools/kind.html">Kind</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tools</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/helm.html">Helm</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">InfraFleet</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">InfraFleet</a></div>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">InfraFleet</a></li>
+    <li><a href="a-modern-platform-team.html">A modern platform team</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/esmaeilmirzaee/worthnotetakingapp/edit/i8t/main/1_projects/2InfraFleet/v2/modules/ROOT/pages/scenarios/a-modern-platform-team.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">A modern platform team</h1>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Imagine you run a K8s platform for an enterprise. Instead of filling an IT ticket and waiting weeks for a dedicated storage drive, developer teams use your <strong>Multi-Tenant S3-Compatible Storage-as-a-Service</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>The DevOps Team</strong> applies a small manifest asking for an S3 bucket to store automated daily database backups.</p>
+</li>
+<li>
+<p><strong>The Data Science Team</strong> requests a massive, high-throughput S3 bucket to feed raw data into an AI model training pipelines.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The operator instantly partitions the underlying hardware, configures separate encryption keys via <strong>cert-manager</strong>, applies resource limits, and hands both teams a unique URL endpoint. Both teams write code using the exact same standard AWS S3 libraries, entirely unaware they are sharing the exact same physical servers underneath.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Would you like to see how MinIO or Rook-Ceph isolates tenants using K8s namespaces, or look at a sample IAM policy used to control S3 bucket access?
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/flow_of_application_cache_db_log.png" alt="An application flow">
+</div>
+</div>
+<div class="paragraph">
+<p>The application flow (regarding checking cache, asking database, and storing logs).</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Inside architecture of our application</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>We can use Oracle/Percona MySQL when we need a bulletproof, transactional source of truth for critical business data (e.g., user profiles, financial ledgers, shopping carts).</p>
+</li>
+<li>
+<p>Opstree Redis when require a blazing-fast caching layer, session store, or message broker to sit in front of our database and offload heavy traffic.</p>
+</li>
+<li>
+<p>ECk is an analytics and observability engine to parse millions of application logs, infrastructure metrics, or power deep search bar inside our website.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

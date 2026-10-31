@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kubernetes distribution and tools :: InfraFleet</title>
+    <link rel="canonical" href="https://i8t.run/clusters/index.html">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../_/css/site.css">
+<link rel="stylesheet" href="../_/css/custom.css">
+<link rel="stylesheet" href="../_/css/code-style.css">
+  </head>
+  <body class="article">
+<div class="navbar">
+<div class="navbar-brand">
+    <a class="navbar-item brand-name" href="https://i8t.run/">InfraFleet Docs</a>
+</div>
+
+<div class="navbar-menu">
+    <div class="navbar-end">
+        <a class="navbar-item" href="https://i8t.run/">Home</a>
+        <a class="navbar-item" href="https://i8t.run/scenarios/index.html">Scenarios</a>
+        <a class="navbar-item" href="https://i8t.run/clusters/kind.html">Clusters</a>
+        <a class="navbar-item" href="https://i8t.run/tools/helm.html">Tools</a>
+<!--        <a class="navbar-item navbar-cta"-->
+<!--           href="https://github.com/esmaeilmirzaee/infrafleet"-->
+<!--           target="_blank"-->
+<!--           rel="noopener noreferrer">Source code</a>-->
+    </div>
+</div>
+</div><div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">InfraFleet</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scenarios/index.html">Scenarios</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scenarios/chart_museum.html">Chart Museum</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Deploy cluster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="distributions/microk8s.html">MicroK8s</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tools/kind.html">Kind</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tools</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/helm.html">Helm</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">InfraFleet</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">InfraFleet</a></div>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">InfraFleet</a></li>
+    <li><a href="index.html">Deploy cluster</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/esmaeilmirzaee/worthnotetakingapp/edit/i8t/main/1_projects/2InfraFleet/v2/modules/ROOT/pages/clusters/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Kubernetes distribution and tools</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following gives us a Kubernetes cluster though they differ in architecture, resource requirements, operational and installation complexity, and intention to use. The following article composes of two sections former, <em>distributions</em> introduces the available Kubernetes distributions. Latter, however, relates to those <em>tools</em> that help to deploy a Kubernetes cluster.</p>
+</div>
+<div class="paragraph">
+<p>Kubernetes clusters can be deployed using different methods. Each method uses a different techniques to provision control-plane, configure worker-nodes, and managing a variety of Kubernetes components.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. List of components:</caption>
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 28.5714%;">
+<col style="width: 57.1429%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Component</th>
+<th class="tableblock halign-left valign-top">Requirement</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="5"><p class="tableblock">Platform</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operating system</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usually Linux</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compute resources</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">control-plane and worker-nodes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Container runtime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Plugins implement CRI; such as containerd or CRI-O</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kubelet</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Node-level Kubernetes agent</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kubeadm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bootstrap cluster</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Administration</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kubectl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Command-line application to communicate to APIServer</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Plugins</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CNI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pod-to-pod network communication</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CSI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Persistent volumes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Service</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Load balancer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expose services to outside world</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The most feasible method to become a dangerous Kubernetes administrator should start with <code>minikube</code>, next <code>kubeadm</code>, then <code>kubespray</code>, and finally moves to a managed cluster like <code>GKE</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The provided path is just a suggestion and alternatives of each tool can be used. Firstly, we need to understand <em>what the Kubernetes is</em> which the suitable solution is a <strong>local cluster</strong>. After, we learned about the resources on Kubernetes now is the time to learn about Kubernetes internals where Kubeadm shines. Next, we need to move managing our Kubernetes clusters using automation tools such as <code>Kubespray</code>. Finally, we can move to a managed cluster.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Several important distinctions</dt>
+<dd>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Installation method: how could we manage to install the Kubernetes? Using automated tools or using a distribution bundles to a binary or just manually installed it.</p>
+</li>
+<li>
+<p>Deployment environment is where our cluster is deployed on bare-metals, virtual machines or even containers.</p>
+</li>
+<li>
+<p>Cluster architecture can be a single-node, multi-node and finally highly available cluster.</p>
+</li>
+<li>
+<p>Operational ownership is divided into self-managed, partially-managed, fully-managed.</p>
+</li>
+<li>
+<p>Provisioning mechanism can be done via scripts, Ansible, Terraform, operators, or CloudAPIs.</p>
+</li>
+</ol>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>In other words,</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Kubernetes cluster deployment can be done in</dt>
+<dd>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Manual</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Binary installation</p>
+</li>
+<li>
+<p>Certificate configuration</p>
+</li>
+<li>
+<p>Static Pod configuration</p>
+</li>
+<li>
+<p>Component-by-component setup</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Bootstrap-based</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Kubeadm</p>
+</li>
+<li>
+<p>Kubelet bootstrap</p>
+</li>
+<li>
+<p>Join-token workflow</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Configuration management</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Kubespray</p>
+</li>
+<li>
+<p>Ansible</p>
+</li>
+<li>
+<p>Terraform or Ansible</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Distribution-based</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>k3s</p>
+</li>
+<li>
+<p>RKE2</p>
+</li>
+<li>
+<p>MicroK8s</p>
+</li>
+<li>
+<p>OpenShift</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Local/container-based</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Minikube</p>
+</li>
+<li>
+<p>kind</p>
+</li>
+<li>
+<p>k3d</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Managed/cloud-based</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Amazon EKS</p>
+</li>
+<li>
+<p>Azure AKS</p>
+</li>
+<li>
+<p>Google GKE</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<div class="title">Layer of K8s</div>
+<p><span class="image"><img src="../_images/k8s_cluster_deployment.svg" alt="Layer of K8s deployment"></span></p>
+</div>
+<div class="paragraph">
+<p>At the very first layer of our infrastructure the hardware residues. It can be bare-metal servers (like HP DL580 G12) or our own laptop. On top of that we could use a bootstrap mechanism <a href="tools/kubespray.adoc">Kubespray</a> or <a href="tools/kubeadm.adoc">Kubeadm</a> to deploy a Kubernetes distribution. Several vendors have developed a Kubernetes cluster, some package it into a binary like <a href="distributions/k3s.adoc">k3s</a> and others require a tool to bootstrap a cluster such as A. The next layer is Kubernetes cluster that the entire cluster including api-server, scheduler, kubelet, CRI, CNI, and CSI but not limited live. Finally, we have our last layer (a service layer) where our customers (or our own application) benefits our Kubernetes cluster.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. General information and classification</caption>
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 55.5555%;">
+<col style="width: 22.2223%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tool</th>
+<th class="tableblock halign-left valign-top">Solution type</th>
+<th class="tableblock halign-left valign-top">Distribution</th>
+<th class="tableblock halign-left valign-top">Main purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[kubeadm]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bootstrap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set up a standard Kubernetes cluster</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upstream Kubernetes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Kubespray]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bootstrap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deploy and configure Kubernetes across machines</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upstream Kubernetes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[kOps]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bootstrap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provision and manage Kubernetes clusters, especially in supported clouds</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upstream Kubernetes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Cluster API (CAPI)]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bootstrap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Manage provisioning, upgrades, and operations for multiple clusters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upstream Kubernetes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[RKE2]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Distribution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provide a hardened, production-oriented Kubernetes setup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes distribution</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[K3s]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Distribution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Run Kubernetes with a small operational and resource footprint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes distribution</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[MicroK8s]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Distribution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provide an easy-to-install, modular Kubernetes environment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes distribution</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[kind]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bootstrap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Run Kubernetes nodes as containers, mainly for development and testing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upstream Kubernetes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Minikube]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bootstrap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create local clusters for development and learning</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upstream Kubernetes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[k0s]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Distribution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deploy a compact, self-contained Kubernetes cluster</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Certified upstream Kubernetes distribution</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Docker Desktop Kubernetes]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bootstrap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Run Kubernetes locally alongside Docker for development and testing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes provisioned with <code>kubeadm</code> or <code>kind</code></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Talos Linux]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bootstrap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Run Kubernetes on a minimal, immutable, API-managed OS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kubernetes managed by Talos</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Deployment and infrastructure</caption>
+<colgroup>
+<col style="width: 11.1111%;">
+<col style="width: 44.4444%;">
+<col style="width: 33.3333%;">
+<col style="width: 11.1112%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tool</th>
+<th class="tableblock halign-left valign-top">Deployment approach</th>
+<th class="tableblock halign-left valign-top">Supported platforms</th>
+<th class="tableblock halign-left valign-top">Multi-node support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[kubeadm]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Manual; works with your own provisioning/configuration tools</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bare metal, VMs, cloud</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Kubespray]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Automated with Ansible playbooks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bare metal, VMs, many clouds</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[kOps]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Automated infrastructure provisioning and cluster lifecycle management</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Supported cloud platforms; some other environments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Cluster API (CAPI)]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Automated through providers and controllers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Depends on the infrastructure provider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[RKE2]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Installer-based; can also be managed with Rancher</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linux servers, VMs, cloud, bare metal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[K3s]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Simple installer; supports server/agent nodes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linux, cloud, bare metal, edge, ARM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[MicroK8s]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Snap-based installation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linux; also available in other environments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[kind]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Creates clusters in Docker containers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local machine or CI host with a container runtime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Minikube]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CLI; uses a VM, container, or bare-metal driver</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linux, macOS, Windows</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes; multi-node supported</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[k0s]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Single-node or multi-node; manual install or <code>k0sctl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linux hosts on cloud, VMs, bare metal, edge; Docker-based options</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Docker Desktop Kubernetes]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable Kubernetes in Docker Desktop; choose a provisioning method</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker Desktop on macOS, Windows, or Linux</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes with <code>kind</code>; no with <code>kubeadm</code></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Talos Linux]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Install Talos on nodes; configure and manage with <code>talosctl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bare metal, VMs, cloud, and edge</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Technical characteristics and capabilities</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tool</th>
+<th class="tableblock halign-left valign-top">Built-in components</th>
+<th class="tableblock halign-left valign-top">Customization</th>
+<th class="tableblock halign-left valign-top">Resource footprint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[kubeadm]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Yes, with additional setup</strong>; kubeadm bootstraps but doesn’t provision infrastructure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium; depends on chosen components and node sizes</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Kubespray]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Yes</strong>, with suitable inventory and configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium–high</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[kOps]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Yes</strong>, for supported platforms and configurations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High, with cloud-specific integrations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium–high</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Cluster API (CAPI)]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Yes</strong>, with a supported provider and production configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Very high</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium–high; requires management-cluster resources</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[RKE2]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium–high</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[K3s]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes; HA and datastore choices matter for production</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium; bundled components can be disabled or replaced</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[MicroK8s]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, with appropriate HA and operational configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium; features are enabled as add-ons</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low–medium</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[kind]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>No</strong>; intended primarily for testing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low–medium, depending on node count and workloads</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Minikube]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No; intended for local development and testing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium; drivers, Kubernetes version, and add-ons are configurable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low–medium; depends on allocated resources and driver</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[k0s]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, with suitable cluster design and operations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High; supports configurable CNI, runtime, and datastore choices</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low; published minimum is 1 vCPU and 1 GB RAM</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Docker Desktop Kubernetes]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No; aimed at local development and testing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low–medium; options depend on provisioner</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium; shares resources with Docker Desktop and the local machine</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Talos Linux]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes; production-ready, with appropriate cluster architecture and operations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High through declarative machine configuration and Kubernetes settings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low–medium; minimal OS, but cluster workload and sizing determine actual needs</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. Operational characteristics and use cases</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tool</th>
+<th class="tableblock halign-left valign-top">Production sustainability</th>
+<th class="tableblock halign-left valign-top">Complexity</th>
+<th class="tableblock halign-left valign-top">Recommended use cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[kubeadm]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minimal; add a CNI and other cluster services</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium–high</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Learning, custom clusters, bare metal, as a building block</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Kubespray]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Networking and cluster components configurable through Ansible</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Self-managed production clusters across varied infrastructure</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[kOps]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add-ons and cloud integrations; options vary</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium–high</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud-first teams wanting automated cluster lifecycle management</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Cluster API (CAPI)]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provider-dependent; built around Kubernetes APIs and controllers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Platform teams managing fleets of clusters</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[RKE2]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bundled Kubernetes services; options depend on configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Production environments seeking a managed, security-focused distribution</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[K3s]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Container runtime, networking, DNS, ingress, local storage and other components</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low–medium</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Edge, IoT, labs, development, and smaller production clusters</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[MicroK8s]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional add-ons for common cluster services</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low–medium</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Development, small clusters, and teams wanting add-on-based setup</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[kind]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minimal; additional components can be installed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local development, CI, and Kubernetes testing</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Minikube]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Core cluster services; common add-ons available</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Learning, local development, demos, CI testing</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[k0s]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Core cluster services, including CoreDNS and Metrics Server; fewer opinionated add-ons</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low–medium</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lightweight production clusters, edge, IoT, labs, air-gapped setups</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Docker Desktop Kubernetes]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Networking and storage controllers; details depend on provisioning method</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local app development, learning, and testing</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">[Talos Linux]</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minimal OS layer; Kubernetes components are managed as part of the platform</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium–high</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Production clusters where immutable infrastructure and API-based OS management are priorities</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_distributions"><a class="anchor" href="#_distributions"></a>Distributions</h2>
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Managed distributions just provide a K8s cluster and allows to become ready in just a several minutes. Everything, therefore, to manage the cluster happens autonomously by a provider.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The following is a list of well-known (somehow dominated the cloud environment).</p>
+</div>
+<div class="sect2">
+<h3 id="_managed"><a class="anchor" href="#_managed"></a>Managed</h3>
+<div class="sect3">
+<h4 id="_openshift"><a class="anchor" href="#_openshift"></a>OpenShift</h4>
+<div class="paragraph">
+<p>Red Hat is well-known in the Open-Source and Linux ecosystem. It introduced OpenShift a managed Kubernetes cluster integrated with developer tooling, security enhancements, and operational features. RedHat OpenShift can also deployed on-premise environment as well.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_google_kubernetes_engine_gke"><a class="anchor" href="#_google_kubernetes_engine_gke"></a>Google Kubernetes Engine (GKE)</h4>
+<div class="paragraph">
+<p>Google Cloud infrastructure to manage Kubernetes cluster using Google Kubernetes Engines (GKE).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_amazon_elastic"><a class="anchor" href="#_amazon_elastic"></a>Amazon Elastic</h4>
+<div class="paragraph">
+<p>Amazon Web Service (AWS) manages Kubernetes control-plane nodes by Amazon Elastic Kubernetes Service (EKS).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_azure_kubernetes_service_aks"><a class="anchor" href="#_azure_kubernetes_service_aks"></a>Azure Kubernetes Service (AKS)</h4>
+<div class="paragraph">
+<p>AKS is the Azure&#8217;s managed Kubernetes for the Azure infrastructure.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_on_premise"><a class="anchor" href="#_on_premise"></a>On-premise</h3>
+<div class="sect3">
+<h4 id="_minikube"><a class="anchor" href="#_minikube"></a>MiniKube</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_docker_desktop_kubernetes"><a class="anchor" href="#_docker_desktop_kubernetes"></a>Docker Desktop Kubernetes</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_k0s"><a class="anchor" href="#_k0s"></a>K0s</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_rancher_kubernetes_rke2"><a class="anchor" href="#_rancher_kubernetes_rke2"></a>Rancher Kubernetes (RKE2)</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_talos_linux"><a class="anchor" href="#_talos_linux"></a>Talos Linux</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_microk8s"><a class="anchor" href="#_microk8s"></a>MicroK8s</h4>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>A lightweight package Kubernetes distribution maintained by Canonical.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>MicroK8s packages a Kubernetes distribution into a <a href="https://canonical.com/snap">Snap</a> package. It therefore can be installed on the Snap supported operating systems simply.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Some notable features</dt>
+<dd>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Simple installation</p>
+</li>
+<li>
+<p>Enabling add-ons easily</p>
+</li>
+<li>
+<p><strong>Built-in DNS, ingress, storage, and observability options</strong></p>
+</li>
+<li>
+<p>Multi-node and high-available cluster</p>
+</li>
+</ol>
+</div>
+</dd>
+<dt class="hdlist1">Best for</dt>
+<dd>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Local, development and testing deployment</p>
+</li>
+<li>
+<p>Edge deployments for small to medium-sized cluster</p>
+</li>
+<li>
+<p>Experimenting with Kubernetes</p>
+</li>
+</ol>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_k3s"><a class="anchor" href="#_k3s"></a>K3s</h4>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>A lightweight package Kubernetes distribution.</p>
+</div>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Most notable feature</dt>
+<dd>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>CNCF-certified distribution</p>
+</li>
+<li>
+<p>Simple installation, deployment, lightweight, and easy to operate</p>
+</li>
+<li>
+<p><strong>Built-in LoadBalancer and local storage provisioner</strong></p>
+</li>
+<li>
+<p>Flannel as <a href="../resources/networking/cni.adoc">CNI</a></p>
+</li>
+<li>
+<p>SQLite (replacing <code>etcd</code>) as the central database and state of the truth for the cluster</p>
+</li>
+</ol>
+</div>
+</dd>
+<dt class="hdlist1">Best for</dt>
+<dd>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Embedded and IoT devices; low-power resources</p>
+</li>
+<li>
+<p>Small-sized production cluster</p>
+</li>
+<li>
+<p>Lightweight distribution</p>
+</li>
+<li>
+<p>Local, testing, and development deployment</p>
+</li>
+<li>
+<p>Experimenting Kubernetes</p>
+</li>
+</ol>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tools"><a class="anchor" href="#_tools"></a>Tools</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The current section describe tools to bootstrap a Kubernetes cluster using different distribution. Some use other distributions and others come with their own distribution.</p>
+</div>
+<div class="sect2">
+<h3 id="_kubespray"><a class="anchor" href="#_kubespray"></a>Kubespray</h3>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>An Ansible automation tools to bootstrap a Kubernetes cluster using <code>Kubeadm</code></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_kubeadm"><a class="anchor" href="#_kubeadm"></a>Kubeadm</h3>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>A bootstrapping Kubernetes cluster tool.</p>
+</div>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Most notable feature</dt>
+<dd>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A tool to deploy a production-grade Kubernetes cluster</p>
+</li>
+<li>
+<p>Generating certificates and cluster configuration</p>
+</li>
+</ol>
+</div>
+</dd>
+<dt class="hdlist1">Best for</dt>
+<dd>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Experimenting with Kubernetes internals</p>
+</li>
+<li>
+<p>Experimenting with different components---(CRI, CNI, and CSI)</p>
+</li>
+<li>
+<p>Building a customized cluster architecture</p>
+</li>
+</ol>
+</div>
+</dd>
+</dl>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Kubeadm doesn&#8217;t install CNI, CRI, and CSI so administrators require to choose and install components based on their interests.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_kind"><a class="anchor" href="#_kind"></a>Kind</h3>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Kind runs a Kubernetes cluster inside Docker containers, mainly for testing and development (on your local machine).</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Kind stands for Kubernetes IN Docker.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Some notable features</dt>
+<dd>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Multi-cluster nodes</p>
+</li>
+<li>
+<p>Simple installation and destroying a cluster</p>
+</li>
+</ol>
+</div>
+</dd>
+<dt class="hdlist1">Best for</dt>
+<dd>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Local, development and testing deployment</p>
+</li>
+<li>
+<p>Experimenting with Kubernetes</p>
+</li>
+<li>
+<p>CI/CD pipeline, Helm, or Kubernetes Operator development and testing</p>
+</li>
+</ol>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

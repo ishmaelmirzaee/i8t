@@ -1,0 +1,465 @@
+/* ==========================================================
+   InfraFleet Docs — System-aware Light/Dark Theme
+   Default: follow the visitor's operating-system preference
+   ========================================================== */
+
+/* ---------- Light theme (default) ---------- */
+
+:root {
+    color-scheme: light;
+
+    --if-bg: #ffffff;
+    --if-bg-secondary: #f8fafc;
+    --if-bg-tertiary: #f1f5f9;
+    --if-bg-code: #f1f5f9;
+    --if-bg-navbar: #ffffff;
+    --if-bg-sidebar: #f8fafc;
+
+    --if-text: #1e293b;
+    --if-text-secondary: #475569;
+    --if-text-muted: #64748b;
+
+    --if-border: #e2e8f0;
+    --if-border-strong: #cbd5e1;
+
+    --if-primary: #2563eb;
+    --if-primary-hover: #1d4ed8;
+    --if-primary-subtle: #eff6ff;
+    --if-link: #1d4ed8;
+
+    --if-code-text: #334155;
+    --if-code-border: #e2e8f0;
+
+    --if-table-header: #f1f5f9;
+    --if-table-stripe: #f8fafc;
+
+    --if-quote-border: #93c5fd;
+    --if-quote-bg: #f8fafc;
+
+    --if-shadow: 0 2px 8px rgb(15 23 42 / 6%);
+    --if-focus: #3b82f6;
+
+    --if-radius: 0.5rem;
+}
+
+.article {
+    padding-top: 0;
+}
+
+/* ---------- Dark theme ---------- */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+
+        --if-bg: #0b1120;
+        --if-bg-secondary: #111827;
+        --if-bg-tertiary: #1e293b;
+        --if-bg-code: #111827;
+        --if-bg-navbar: #0f172a;
+        --if-bg-sidebar: #0f172a;
+
+        --if-text: #e2e8f0;
+        --if-text-secondary: #cbd5e1;
+        --if-text-muted: #94a3b8;
+
+        --if-border: #273449;
+        --if-border-strong: #3b4a60;
+
+        --if-primary: #60a5fa;
+        --if-primary-hover: #93c5fd;
+        --if-primary-subtle: #172554;
+        --if-link: #93c5fd;
+
+        --if-code-text: #e2e8f0;
+        --if-code-border: #334155;
+
+        --if-table-header: #1e293b;
+        --if-table-stripe: #111827;
+
+        --if-quote-border: #3b82f6;
+        --if-quote-bg: #111827;
+
+        --if-shadow: 0 2px 12px rgb(0 0 0 / 20%);
+        --if-focus: #93c5fd;
+    }
+}
+
+/* ---------- Global document ---------- */
+
+html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        color-scheme: dark;
+    }
+}
+
+body {
+    background-color: var(--if-bg);
+    color: var(--if-text);
+    transition: background-color 160ms ease, color 160ms ease;
+}
+
+/* ---------- Navigation ---------- */
+
+.navbar {
+    background-color: var(--if-bg-navbar);
+    border-bottom: 1px solid var(--if-border);
+    box-shadow: var(--if-shadow);
+    position: fixed;
+    top: 0;
+}
+
+.navbar .navbar-brand {
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.navbar-brand,
+.navbar-menu,
+.navbar .navbar-item,
+.navbar .navbar-link {
+    background-color: var(--if-bg-navbar);
+    color: var(--if-text-secondary);
+}
+
+.navbar .brand-name {
+    color: var(--if-text);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.navbar .navbar-item:hover,
+.navbar .navbar-link:hover {
+    background-color: var(--if-bg-tertiary);
+    color: var(--if-primary);
+}
+
+.navbar .navbar-item.brand-name:hover {
+    background-color: transparent;
+    color: var(--if-primary);
+}
+
+/* Source-code CTA */
+
+.navbar .navbar-item.navbar-cta {
+    margin: 0.5rem 0.75rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--if-primary);
+    border-radius: var(--if-radius);
+    background-color: var(--if-primary);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.navbar .navbar-item.navbar-cta:hover {
+    border-color: var(--if-primary-hover);
+    background-color: var(--if-primary-hover);
+    color: #ffffff;
+}
+
+/* ---------- Toolbar and page navigation ---------- */
+
+.toolbar,
+.toolbar .toolbar-item,
+.toolbar .page-versions,
+.toolbar .page-versions .version-menu {
+    background-color: var(--if-bg);
+    color: var(--if-text-secondary);
+    border-color: var(--if-border);
+}
+
+.toolbar .toolbar-item:hover {
+    background-color: var(--if-bg-tertiary);
+    color: var(--if-primary);
+}
+
+/* ---------- Article content ---------- */
+
+.doc {
+    color: var(--if-text);
+}
+
+.doc h1,
+.doc h2,
+.doc h3,
+.doc h4,
+.doc h5,
+.doc h6 {
+    color: var(--if-text);
+    border-color: var(--if-border);
+}
+
+.doc p,
+.doc li,
+.doc dd,
+.doc dt,
+.doc td,
+.doc th {
+    color: inherit;
+}
+
+.doc strong,
+.doc b {
+    color: var(--if-text);
+}
+
+.doc hr {
+    background-color: var(--if-border);
+}
+
+/* Links */
+
+.doc a,
+.doc a code {
+    color: var(--if-link);
+}
+
+.doc a:hover,
+.doc a:focus-visible {
+    color: var(--if-primary-hover);
+}
+
+.doc a:not([class]) {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+}
+
+/* ---------- Sidebar and table of contents ---------- */
+
+.nav-container,
+.nav-container .nav,
+.nav-container .nav-panel-menu,
+.nav-container .nav-menu,
+.nav-container .nav-menu a {
+    background-color: var(--if-bg-sidebar);
+    color: var(--if-text-secondary);
+}
+
+.nav-container {
+    border-color: var(--if-border);
+}
+
+.nav-container a:hover,
+.nav-container .is-current-page > a,
+.nav-container .is-current-page > a:hover {
+    color: var(--if-primary);
+}
+
+.nav-container .is-current-page > a {
+    background-color: var(--if-primary-subtle);
+}
+
+.doc .toc,
+.doc .toc-menu {
+    border-color: var(--if-border);
+    color: var(--if-text-secondary);
+}
+
+.doc .toc a {
+    color: var(--if-text-secondary);
+}
+
+.doc .toc a:hover,
+.doc .toc .is-active {
+    color: var(--if-primary);
+}
+
+/* ---------- Inline code and code blocks ---------- */
+
+.doc code,
+.doc pre,
+.doc .literalblock pre,
+.doc .listingblock pre {
+    color: var(--if-code-text);
+    border-color: var(--if-code-border);
+}
+
+.doc :not(pre) > code {
+    padding: 0.12em 0.35em;
+    border: 1px solid var(--if-code-border);
+    border-radius: 0.3rem;
+    background-color: var(--if-bg-code);
+}
+
+.doc pre,
+.doc .literalblock pre,
+.doc .listingblock pre {
+    overflow-x: auto;
+    border: 1px solid var(--if-code-border);
+    border-radius: var(--if-radius);
+    background-color: var(--if-bg-code);
+}
+
+.doc pre code {
+    border: 0;
+    background-color: transparent;
+}
+
+/* Keep syntax highlighting readable in both themes */
+
+.doc .hljs,
+.doc pre code[class*="language-"] {
+    color: var(--if-code-text);
+}
+
+code {
+    color: var(--if-code-text);
+    background-color: var(--if-bg-code);
+}
+
+/* ---------- Tables ---------- */
+
+.doc table,
+.doc .tableblock {
+    border-color: var(--if-border);
+    background-color: var(--if-bg);
+    color: var(--if-text);
+}
+
+.doc table th,
+.doc .tableblock th {
+    background-color: var(--if-table-header);
+    color: var(--if-text);
+}
+
+.doc table td,
+.doc table th,
+.doc .tableblock td,
+.doc .tableblock th {
+    border-color: var(--if-border);
+}
+
+.doc table tr:nth-child(even) td {
+    background-color: var(--if-table-stripe);
+}
+
+/* ---------- Admonitions ---------- */
+
+.doc .admonitionblock {
+    background-color: var(--if-primary);
+}
+
+.doc .admonitionblock > table {
+    border: 1px solid var(--if-border);
+    border-radius: var(--if-radius);
+    color: var(--if-bg-secondary);
+}
+
+.doc .admonitionblock td.icon {
+    background-color: var(--if-bg-tertiary);
+}
+
+.doc .admonitionblock td.content {
+    color: var(--if-text);
+}
+
+/* ---------- Quotes and examples ---------- */
+
+.doc blockquote,
+.doc .quoteblock blockquote,
+.doc .exampleblock > .content,
+.doc .openblock > .content {
+    border-color: var(--if-quote-border);
+    background-color: var(--if-quote-bg);
+    color: var(--if-text-secondary);
+}
+
+.doc .sidebarblock {
+    border: 1px solid var(--if-border);
+    border-radius: var(--if-radius);
+    background-color: var(--if-bg-secondary);
+    color: var(--if-text);
+}
+
+/* ---------- Search controls ---------- */
+
+.search-input,
+.search-input:focus,
+.navbar .search-input {
+    border-color: var(--if-border);
+    background-color: var(--if-bg-secondary);
+    color: var(--if-text);
+}
+
+.search-input::placeholder {
+    color: var(--if-text-muted);
+}
+
+/* ---------- Footer and pagination ---------- */
+
+.footer,
+.footer .footer-content,
+.pagination,
+.pagination a {
+    border-color: var(--if-border);
+    background-color: var(--if-bg-secondary);
+    color: var(--if-text-secondary);
+}
+
+.pagination a:hover {
+    color: var(--if-primary);
+}
+
+/* ---------- Forms and keyboard focus ---------- */
+
+.doc input,
+.doc select,
+.doc textarea {
+    border: 1px solid var(--if-border-strong);
+    border-radius: 0.35rem;
+    background-color: var(--if-bg);
+    color: var(--if-text);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--if-focus);
+    outline-offset: 3px;
+}
+
+/* ---------- Images and media ---------- */
+
+.doc img {
+    border-radius: 0.25rem;
+}
+
+.doc figure figcaption {
+    color: var(--if-text-muted);
+}
+
+/* ---------- Responsive navigation ---------- */
+
+@media screen and (max-width: 1023px) {
+    .navbar-menu {
+        border-top: 1px solid var(--if-border);
+        box-shadow: var(--if-shadow);
+    }
+
+    .navbar .navbar-item.navbar-cta {
+        margin: 0.5rem;
+        text-align: center;
+    }
+}
+
+/* ---------- Accessibility ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}

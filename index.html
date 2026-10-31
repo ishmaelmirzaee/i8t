@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>I8T.run :: InfraFleet</title>
+    <link rel="canonical" href="https://i8t.run/index.html">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="./_/css/site.css">
+<link rel="stylesheet" href="./_/css/custom.css">
+<link rel="stylesheet" href="./_/css/code-style.css">
+  </head>
+  <body class="article">
+<div class="navbar">
+<div class="navbar-brand">
+    <a class="navbar-item brand-name" href="https://i8t.run/">InfraFleet Docs</a>
+</div>
+
+<div class="navbar-menu">
+    <div class="navbar-end">
+        <a class="navbar-item" href="https://i8t.run/">Home</a>
+        <a class="navbar-item" href="https://i8t.run/scenarios/index.html">Scenarios</a>
+        <a class="navbar-item" href="https://i8t.run/clusters/kind.html">Clusters</a>
+        <a class="navbar-item" href="https://i8t.run/tools/helm.html">Tools</a>
+<!--        <a class="navbar-item navbar-cta"-->
+<!--           href="https://github.com/esmaeilmirzaee/infrafleet"-->
+<!--           target="_blank"-->
+<!--           rel="noopener noreferrer">Source code</a>-->
+    </div>
+</div>
+</div><div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">InfraFleet</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="scenarios/index.html">Scenarios</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scenarios/chart_museum.html">Chart Museum</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="clusters/index.html">Deploy cluster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="clusters/distributions/microk8s.html">MicroK8s</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="clusters/tools/kind.html">Kind</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tools</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tools/helm.html">Helm</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">InfraFleet</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="index.html">InfraFleet</a></div>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link is-current"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">InfraFleet</a></li>
+    <li><a href="index.html">Home</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/esmaeilmirzaee/worthnotetakingapp/edit/i8t/main/1_projects/2InfraFleet/v2/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">I8T.run</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="title">Example 1. Good to know</div>
+<div class="content">
+<div class="paragraph">
+<p><strong>A useful interview habit is to structure every answer in 3 parts</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><em>Definition</em>: What is it?</p>
+</li>
+<li>
+<p><em>Behavior</em>: How does it work?</p>
+</li>
+<li>
+<p><em>Practical example</em>: How would you verify or use it?</p>
+</li>
+<li>
+<p><em>Production-ready alternatives</em>: What are the enterprise-grade production-ready alternatives?</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example,</p>
+</div>
+<div class="paragraph">
+<p><mark>ClusterIP is a virtual IP assigned to a Kubernetes Service. It provides internal access to the Service and forward traffics to its backend endpoints. I can inspect it using:</mark></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl get svc</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_kubernetes_k8s"><a class="anchor" href="#_what_is_kubernetes_k8s"></a>What is Kubernetes (K8s)?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is an orchestration tool. In many books, you see they say it is a container orchestration tool. However, since the introduction of K8s in 20xx; the community worked to enhance K8s capabilities. As of writing this piece, we can use K8s to manage Virtual Machines (VMs) as well as Containers. Thus, it is not only a Container orchestrator, but also, a VM orchestrator as well.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_does_orchestration_mean"><a class="anchor" href="#_what_does_orchestration_mean"></a>What does orchestration mean?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It means we can use a tool to manage the lifecycle of our application. Yet, the tool runs our application, it also checks for errors, or failures in out application and as of error in our application, it can bring up a new replacement to our application.
+??Also, it automates the future deployment of our application.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_does_k8s_work"><a class="anchor" href="#_how_does_k8s_work"></a>How does K8s work?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The latest version of K8s uses several plugin interfaces which allows third-parties softwares connect to the K8s; for example, Container Runtime Interfaces allows wide variety of container runtime (e.g., Docker, cri-o) connect to <code>kubelet</code>, or Container Storage Interface (CSI) enables companies to connect their solutions to K8s (e.g., OpenEBS).</p>
+</div>
+<div class="sect2">
+<h3 id="_distributions"><a class="anchor" href="#_distributions"></a>Distributions</h3>
+<div class="paragraph">
+<p>Several companies introduced their own implementation of K8s, including Google, Red Hat, Canonical, OpenSuse. Each distribution comes with a handful of features, however they provide the same intention (orchestrating containers).</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="./_/js/site.js" data-ui-root-path="./_"></script>
+<script async src="./_/js/vendor/highlight.js"></script>
+  </body>
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ingress Controllers :: InfraFleet</title>
+    <link rel="canonical" href="https://i8t.run/resources/networking/ingress_controllers.html">
+    <meta name="generator" content="Antora 3.2.1">
+<link rel="stylesheet" href="../../_/css/site.css">
+<link rel="stylesheet" href="../../_/css/custom.css">
+<link rel="stylesheet" href="../../_/css/code-style.css">
+  </head>
+  <body class="article">
+<div class="navbar">
+<div class="navbar-brand">
+    <a class="navbar-item brand-name" href="https://i8t.run/">InfraFleet Docs</a>
+</div>
+
+<div class="navbar-menu">
+    <div class="navbar-end">
+        <a class="navbar-item" href="https://i8t.run/">Home</a>
+        <a class="navbar-item" href="https://i8t.run/scenarios/index.html">Scenarios</a>
+        <a class="navbar-item" href="https://i8t.run/clusters/kind.html">Clusters</a>
+        <a class="navbar-item" href="https://i8t.run/tools/helm.html">Tools</a>
+<!--        <a class="navbar-item navbar-cta"-->
+<!--           href="https://github.com/esmaeilmirzaee/infrafleet"-->
+<!--           target="_blank"-->
+<!--           rel="noopener noreferrer">Source code</a>-->
+    </div>
+</div>
+</div><div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../../index.html">InfraFleet</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../scenarios/index.html">Scenarios</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../scenarios/chart_museum.html">Chart Museum</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../clusters/index.html">Deploy cluster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../clusters/distributions/microk8s.html">MicroK8s</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../clusters/tools/kind.html">Kind</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tools</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../tools/helm.html">Helm</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">InfraFleet</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../index.html">InfraFleet</a></div>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">InfraFleet</a></li>
+    <li><a href="ingress_controllers.html">Ingress Controllers</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/esmaeilmirzaee/worthnotetakingapp/edit/i8t/main/1_projects/2InfraFleet/v2/modules/ROOT/pages/resources/networking/ingress_controllers.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Ingress Controllers</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>A K8s component that allows external traffic into our cluster.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_definition"><a class="anchor" href="#_definition"></a>Definition</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An Ingress controller is a specialized load-balancer that manages external access to Services within a K8s cluster, typically providing HTTP and HTTPS routing. Simply put, it is a set of rules (a configuration file). It is the actual software (the "engine") that reads these rules and carries out the traffic routing. It can be both a <em>load-balancer</em> and a <em>reverse-proxy</em> simultaneously.</p>
+</div>
+<div class="paragraph">
+<p>On the other hand, a K8s <a href="../../service.adoc">Service</a> (like NodePort or LoadBalancer) handles basic traffic routing inside our clusters between pods.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_ingress_controller_work"><a class="anchor" href="#_how_ingress_controller_work"></a>How <em>Ingress Controller</em> work</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Steps</caption>
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 20%;">
+<col style="width: 50%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">#</th>
+<th class="tableblock halign-left valign-top">Step</th>
+<th class="tableblock halign-left valign-top">Activity</th>
+<th class="tableblock halign-left valign-top">Resides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service of type <code>LoadBalancer</code> or <code>NodePort</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The K8s Service that fronts the Ingress Controller pod(s) requests a cloud-provider load-balancer. The provider creates a public IP/DNS name.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud-provider LB &#8594; Ingress Controller Pod</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Ingress Controller</strong> pod <sub>(NGINX,</sub> <sub>HAProxy,</sub> <sub>Envoy,</sub> <sub>Traefik,</sub> <sub>&#8230;&#8203;)</sub></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The controller runs a revers-proxy server. It watches all <code>Ingress</code> objects, renders a proxy configuration (virtual hosts, path rules, TLS, rate-limiting, etc.) and reloads the proxy whenever the rules change.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reverse-proxy logic inside the pod</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Proxy&#8594;Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The reverse-proxy forwards the request (HTTP/HTTPS, gRPC, etc.) to the target K8s Service (ClusterIP) that selects the backend Pods.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Proxy &#8594; ClusterIP Service &#8594; Pods</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>So the external LoadBalancer distributes inbound connections across the actual Ingress Controller Pods, while the reverse-proxy inside each pod does the actual HTTP routing to our workloads.</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Production-grade Ingress Controllers</caption>
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Primary proxy engine</th>
+<th class="tableblock halign-left valign-top">Notable features</th>
+<th class="tableblock halign-left valign-top">Typical use cases</th>
+<th class="tableblock halign-left valign-top">Typical <code>LoadBalancer</code> integration</th>
+<th class="tableblock halign-left valign-top">Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://kubernetes/ingress-nginx">NGINX Ingress Controller</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NGINX (commercial-features)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rich annotations, extensive community support, robust TLS &amp; JWT handling</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">General purpose, works on most clouds and on-perms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deploys a <code>Service</code> (<code>type: LoadBalancer</code>) that automatically provisions a Cloud LB.</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>It has a</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Long-standing community</p>
+</li>
+<li>
+<p>More that 10K GitHub stars</p>
+</li>
+<li>
+<p>Many production case studies</p>
+</li>
+<li>
+<p>Solid TLS and rewrite support</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://haproxytech/kubernetes-ingress">HAProxy</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HAProxy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Native TCP/UDP support, advanced rate-limiting, connection-pooling, easy to enable HAProxy Enterprise features</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High-performance, latency-sensitive workloads</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Same patterns - a LoadBalancer Service in front of HAProxy load-balancer.</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>High-performance TCP/UDP handling</p>
+</li>
+<li>
+<p>battle-tested in fintech and eco environments</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://traefik/traefik">Traefik</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Traefik</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Built-in Let&#8217;s Encrypt, dynamic configuration via CRDs, middleware pipeline, good for microservice meshes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cloud-native stacks, easy TLS automation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It can expose itself with a <code>LoadBalancer</code> Service or use the cloud-provider&#8217;s <strong>Ingress-class "traefik"</strong> which creates the LB automatically</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Built-in ACME (Let&#8217;s envrypt) automation</p>
+</li>
+<li>
+<p>Dynamic configuration</p>
+</li>
+<li>
+<p>Popular with Docker-Swarm-to-K8s migrations</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://kong/kubernetes-ingress-controller">Kong Ingress Controller</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NGINX-based</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Plugin ecosystem (authentication, rate-limiting, logging), Kong Enterprise integration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API-first platforms, need plugin extensibility</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">https://[Istio Gateway]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Envoy (via Istio)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Full service-mesh capabilities, advanced traffic management, mTLS, fault injection</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Environment already using Istio or needing mesh-wide policies</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Gateway runs as a Deployment behind a <code>LoadBalancer</code> Service (or <code>NodePort</code> for on-prem) providing L7 routing and L4 TCP/UDP capabilities.</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Full service-mesh integration</p>
+</li>
+<li>
+<p>Used by large enterprises for <strong>zero-trust</strong> ingress</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://amazon/aws-load-balancer-controller">AWS LoadBalancer controller</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS ALB/NLB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Directly provisions AWS Application Load Balancers from Ingress resources, supports target-group health checks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clusters running on AWS, want native ALB/NLB features</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://GKE/GCE_Ingress">GKE/GCE Ingress</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GCE L7 load balancer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Managed by Google Cloud, automatic SSL cert provisioning via Google Managed Certificates</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Google cloud-only deployments</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_good_for"><a class="anchor" href="#_good_for"></a>Good for</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All the above, table-1, are battle-tested in large-scale production environments.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Runtime performance</dt>
+<dd>
+<p>HAProxy &amp; Nginx are classic high-throughput choices.</p>
+</dd>
+<dt class="hdlist1">Feature set</dt>
+<dd>
+<p>Traefik and Kong excel in middleware and plugins; Istio provides</p>
+</dd>
+<dt class="hdlist1">Cloud integration</dt>
+<dd>
+<p>Cloud-specific controllers</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_protocol_support"><a class="anchor" href="#_protocol_support"></a>Protocol support</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Protocol support</caption>
+<colgroup>
+<col style="width: 6.6666%;">
+<col style="width: 53.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 6.6668%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Protocol/use-case</th>
+<th class="tableblock halign-left valign-top">Can a typical Ingress controller route it?</th>
+<th class="tableblock halign-left valign-top">How it&#8217;s usually done?</th>
+<th class="tableblock halign-left valign-top"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>HTTP/HTTPS(REST, graphQL, gRPC-HTTP/2)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅Yes, most Ingress controllers (<strong>NGINX</strong>, <strong>HAProxy</strong>, <strong>Kong</strong>, <strong>Traefik</strong>, <strong>Istio Gateway</strong>) understand HTTP/2 and can terminate TLS, then forward the stream to the backend service. gRPC works because it is just HTTP/2 with a different content-type (<code>application/grpc</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use an <code>Ingress</code> rule with the appropriate <code>host</code>/<code>path</code> and optional <code>nginx.ingress.kubernetes.io/backend-protocol:"GRPC"</code>; or the equivalent annotation for the controller</p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">✅</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pure gRPC (non-HTTP/2-aware proxies)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">❌Not directly - the Ingress resource is defined for Layer 7 (HTTP) traffic. If the underlying proxy can terminate HTTP/2 and forward the gRPC payload, it works; otherwise you need a Gateway (e.g., Istio Gateway or a dedicated gRPC-proxy such as Envoy).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deploy an <strong>Envoy</strong> or <strong>Istio</strong> gateway that advertises the gRPC ports, and expose it via a Service of type <code>LoadBalancer</code>. Do not rely on the vanilla <strong>NGINX Ingress</strong> unless you add the <code>gRPC</code>-specific annotation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">❌</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>GraphQL over HTTP</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅Yes, GraphQL is just an HTTP POST (or WebSocket) request, so any HTTP-aware Ingress works.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No special configuration beyond normal HTTP rules; you may want to enable WebSocket support (<code>nginx.ingress.kubernetes.io/enable-websocket: "true"</code>).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>UDP(e.g., DNS, SIP, FTP data channel)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">❌Not with the standard <strong>Ingress</strong> API, because <strong>Ingress</strong> is defined only for L7 HTTP(S) traffic. Some controllers (HAProxy, NGINX Plus) expose additional CRDs (e.g., <code>TCPIngress</code>, <code>UDPIngress</code>) or use a separate <code>Service</code> of type <code>LoadBalancer</code> with <code>protocol: UDP</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For UDP we typically: 1. Create a <code>Service</code> with <code>type: LoadBalancer</code> (or <code>NodePort</code>) and <code>protocol: UDP</code>. 2. If we need a single external IP for many UDP services, use a custom controller that supports a <code>UDPIngress</code> CRD (HAProxy Ingress provides this).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">❌</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>FTP (control + data channels)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">❌Not via standard <strong>Ingress</strong>. FTP uses both TCP control (port 21) and a dynamic data channel (active/passive ports). You need a LoadBalancer Service for the control port and configure the data-port range via a Service or a dedicated FTP-proxy pod.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use a <strong>StatefulSet</strong> with a <code>Service</code> that opens a range of UDP/TCP ports, or run an FTP reverse-proxy (e.g., <code>nginx-stream</code> or <code>HAProxy</code> in TCP mode) behind a LoadBalancer.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">❌</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Useful commands to verify Ingress Controller</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Step</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Action</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" colspan="2"><p class="tableblock">Commands</p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Deploy the controller</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Installation is possible using <code>Helm</code>, <code>Kustomize</code>, or manifests</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -C- -LO https://github.com/kubernetes/ingress-nginx/releases/download/helm-chart-4.15.1/ingress-nginx-4.15.1.tgz
+curl --binary-data ingress-nginx.tgz local-museum:3000/api/charts
+helm install ingress-nginx local-museum/ingress-nginx</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Confirm Pods are running</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check the health of controller pods</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n ingress-nginx get pods -owide</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Check the Service</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verify the external IP (LoadBalancer) or node ports</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n ingress-nginx get service -owide</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Create a test Ingress object</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Creating a simple rule pointing to a Service</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo &gt;&gt; /tmp/test-ingress.yml &lt; "EOF"
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: test-ingress
+spec:</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Client-side testing</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Observe routing using <code>curl</code> to host:port/uri</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -H "Host: example.com" https://&lt;external-ip&gt;/uri</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">TLS verification</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Checking for TLS; CRTs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">openssl s_client -servername example.com -connect &lt;external-ip&gt;:443</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Logs &amp; metrics</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check Pods' logs; or metrics in Prometheous</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n ingress-nginx logs &lt;controller-pod&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Debug config</p></th>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read the generated proxy config (e.g., NGINX config) to ensure rules are applied</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="2"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kubectl -n ingress-nginx exec &lt;controller-pod&gt; -- cat /etc/nginx/nginx.conf</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_faq"><a class="anchor" href="#_faq"></a>FAQ</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Is <code>Envoy</code> an Ingress controller?</p>
+<div class="ulist">
+<ul>
+<li>
+<p>It can act as one, but it is not the default <code>K8s Ingress</code> implementation.</p>
+</li>
+<li>
+<p>When an <code>Envoy</code> runs behind a K8s <code>Service</code> of type LoadBalancer and configure it via <code>Istio Gateway CRD</code>, <code>Kong-mesh</code>, or the <code>NGINX</code>-like <code>Ingress</code> CRD offered by <a href="https://sd.s">Envoy-Ingress-Controller</a> project, Envoy becomes the data plane that fulfills the <code>Ingress</code> semantics.</p>
+</li>
+<li>
+<p>In the <code>Istio</code> ecosystem, the <strong>Istio Gateway</strong> (which runs <code>Envoy</code> internally) is the production-grade replacement for a generic Ingress Controller and can handle HTTP, gRPC, TCP, and UDP traffic.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Layer-7 vs. Layer-4</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Ths standard K8s Ingress Controller contracts just require Layer-7 support (meaning that HTTP and HTTPS)</p>
+</li>
+<li>
+<p>A couple of Ingress Controllers (e.g., HAProxy or NGINX Plus) extend the model via supporting <code>TCPIngress</code>, <code>UDPIngress</code> to expose Layer 4 TCP and UDP.</p>
+</li>
+<li>
+<p>For a pure Layer 4 (raw TCP/UDP, FTP, DNS, etc.), the usual pattern is exposing via a K8s <code>Service</code> of type <code>LoadBalancer</code> or <code>NodePort</code> and let the cloud provider&#8217;s handle the traffic, or running a specialized controller that supports those CRDs.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>A K8s <code>Service</code> defines a stable Virtual IP (CLusterIP) and DNS name that load-balances traffic inside the cluster to the set of Pods selected by its selector. The traffic never leaves the cluster network unless the <code>Service</code> type is <code>NodePort</code> or <code>LoadBalancer</code>.</p>
+</li>
+<li>
+<p>Pods in different namespaces can reach each other if they know the appropriate DNS name or IP. A <code>Service</code> created in one namespace is reachable from another namespace by using the fully-qualified name:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">===
+&lt;service-name&gt;.&lt;namespace&gt;.svc.cluster.local
+===</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Thus a Service can serve Pods from a namespace to another Services/Pods inside another namespace via <code>ExternalName</code> or by selecting the same label set.</p>
+</li>
+<li>
+<p><strong>Network Policies may restrict the communication</strong>, but from a pure networking standpoint is allowed.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>An Ingress Controller watches <span class="blue"><code>Ingress</code> resources and configures a</span> load-balancer or reverse-proxy that accepts incoming traffic from outside the cluster and routes it to the appropriate <code>Service</code> inside the cluster. It is entry point for external clients.</p>
+</li>
+<li>
+<p>An <em>Ingress Controller</em> can be both a load-balancer and a reverse-proxy simultaneously.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
