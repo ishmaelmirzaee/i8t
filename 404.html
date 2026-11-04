@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<link rel="stylesheet" href="/_/css/site.css">
+
+<script>
+    (function () {
+        try {
+            var theme = localStorage.getItem('antora-theme');
+            if (theme === 'dark' || theme === 'light') {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        } catch (e) {}
+    })();
+</script>
+
+<link rel="stylesheet" href="/_/css/site.css">
+<link rel="stylesheet" href="/_/css/linenumbering.css">
+
+  </head>
+  <body class="status-404">
+<div class="navbar">
+    <div class="navbar-brand">
+        <a class="navbar-item brand-name" href="https://i8t.run/">
+            <span>
+                <img src="https://i8t.run/_/img/style/logo.svg" alt="i8t logo">
+            </span>
+            <span>InfraFleet</span>
+        </a>
+    </div>
+
+    <div class="navbar-menu">
+        <div class="navbar-end">
+                    </div>
+        <button
+                type="button"
+                class="theme-toggle"
+                onclick="toggleAntoraTheme()"
+                aria-label="Toggle dark and light theme"
+                title="Toggle theme"
+        >
+            <span class="theme-toggle-icon" aria-hidden="true">◐</span>
+        </button>
+    </div>
+</div>
+<div class="body">
+<div class="nav-container">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-explore is-active" data-panel="explore">
+  <ul class="components">
+    <li class="component">
+      <div class="title"><a href="/index.html">InfraFleet</a></div>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+</nav>
+</div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Page Not Found</h1>
+<div class="paragraph">
+<p>The page you&#8217;re looking for does not exist. It may have been moved. You can return to the <a href="/index.html">start page</a>, or follow one of the links in the navigation to the left.</p>
+</div>
+<div class="paragraph">
+<p>If you arrived on this page by clicking on a link, please notify the owner of the site that the link is broken.
+If you typed the URL of this page manually, please double check that you entered the address correctly.</p>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/styles/default.min.css">
+<!-- Highlight.js -->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/languages/go.min.js"></script>-->
+<script src="/_/js/theme.js"></script>
+<script src="/_/js/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script>hljs.highlightAll();</script>
+
+<!-- Highlight.js Line Numbers -->
+<script src="/_/js/highlightjs-line-numbers.min.js"></script>
+
+<!-- Initialize Highlight.js and line numbering -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (window.hljs) {
+            document.querySelectorAll('pre code').forEach(function (block) {
+                if (!block.classList.contains('hljs')) {
+                    hljs.highlightElement(block);
+                }
+            });
+
+            hljs.initLineNumbersOnLoad();
+        }
+    });
+</script>
+
+<footer class="custom-footer">
+    <div class="custom-footer-container">
+
+        <!-- Brand -->
+        <div class="footer-brand">
+            <a href="/" class="footer-logo">
+                InfraFleet<span>.</span>
+            </a>
+
+            <p class="footer-description">
+                Exploring infrastructure deployment, software engineering,
+                programming languages, system architecture, and modern development.
+            </p>
+
+            <div class="footer-social">
+                <a href="https://github.com/YOUR_USERNAME"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="GitHub">
+                    GitHub
+                </a>
+
+            </div>
+        </div>
+
+        <!-- Documentation -->
+        <div class="footer-column">
+            <h3>Documentation</h3>
+            <ul>
+                <li><a href="/">Home</a></li>
+            </ul>
+        </div>
+
+        <!-- Resources -->
+        <div class="footer-column">
+            <h3>Resources</h3>
+            <ul>
+                <li><a href="https://github.com/esmaeilmirzaee">GitHub</a></li>
+                <li><a href="https://docs.antora.org/">Antora</a></li>
+                <li><a href="https://asciidoc.org/">AsciiDoc</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>
+            &copy; 2026 InfraFleet.
+            Built with <a href="https://antora.org/">Antora</a>.
+        </p>
+
+        <p class="footer-tagline">
+            Engineering knowledge, one commit at a time.
+        </p>
+    </div>
+</footer>
+<script id="site-script" src="/_/js/site.js" data-ui-root-path="/_"></script>
+<script async src="/_/js/vendor/highlight.js"></script>
+  </body>
+</html>

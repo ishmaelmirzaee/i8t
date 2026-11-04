@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 380" fill="none">
+    <defs>
+        <linearGradient id="gMain" x1="60" y1="40" x2="340" y2="340" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#3F8BD6"/>
+            <stop offset="1" stop-color="#1D5BAD"/>
+        </linearGradient>
+        <linearGradient id="gArrow" x1="32" y1="340" x2="318" y2="102" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#63ACE6"/>
+            <stop offset="1" stop-color="#1E5FAE"/>
+        </linearGradient>
+
+        <!-- arrow centre-line (reused for the cut-out halo and the arrow body) -->
+        <path id="band" d="M32 340 L105 262 L140 296 L269 151"/>
+
+        <!-- mask: everything white stays; the arrow silhouette + halo is cut away -->
+        <mask id="cut">
+            <rect width="400" height="380" fill="#fff"/>
+            <use href="#band" stroke="#000" stroke-width="56" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M318 102 L230 112 L308 190 Z" fill="#000" stroke="#000" stroke-width="20" stroke-linejoin="round"/>
+        </mask>
+    </defs>
+
+    <!-- cloud + "i3" lettering, cut where the arrow passes -->
+    <g mask="url(#cut)">
+        <!-- cloud outline (open at the bottom) -->
+        <path d="M96 188 C96 154 120 130 150 128
+             C156 92 188 66 226 68
+             C244 36 288 26 318 46
+             C346 64 356 98 344 126
+             C368 140 376 170 358 192
+             C350 200 336 200 324 196"
+              stroke="url(#gMain)" stroke-width="16" stroke-linecap="round"/>
+        <!-- letter i -->
+        <rect x="30" y="122" width="52" height="52" fill="url(#gMain)"/>
+        <rect x="30" y="188" width="52" height="118" fill="url(#gMain)"/>
+        <!-- letter 3 -->
+        <path d="M148 160 C172 138 214 140 232 166
+             C249 190 240 216 208 228
+             C250 238 272 268 262 300
+             C250 336 198 352 158 332
+             C140 323 132 306 135 290"
+              stroke="url(#gMain)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <!-- rising arrow -->
+    <use href="#band" stroke="url(#gArrow)" stroke-width="34"/>
+    <path d="M318 102 L230 112 L308 190 Z" fill="url(#gArrow)"/>
+
+    <!-- circuit trace + nodes on the arrow -->
+    <path d="M105 262 L140 296 L205 224" stroke="#E8F2FB" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="105" cy="262" r="7" fill="#E8F2FB"/>
+    <circle cx="140" cy="296" r="7" fill="#E8F2FB"/>
+    <circle cx="205" cy="224" r="7" fill="#E8F2FB"/>
+</svg>

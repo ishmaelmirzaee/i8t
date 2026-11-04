@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<link rel="stylesheet" href="../_/css/site.css">
+
+<script>
+    (function () {
+        try {
+            var theme = localStorage.getItem('antora-theme');
+            if (theme === 'dark' || theme === 'light') {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        } catch (e) {}
+    })();
+</script>
+
+<link rel="stylesheet" href="../_/css/site.css">
+<link rel="stylesheet" href="../_/css/linenumbering.css">
+
+  </head>
+  <body class="article">
+<div class="navbar">
+    <div class="navbar-brand">
+        <a class="navbar-item brand-name" href="https://i8t.run/">
+            <span>
+                <img src="https://i8t.run/_/img/style/logo.svg" alt="i8t logo">
+            </span>
+            <span>InfraFleet</span>
+        </a>
+    </div>
+
+    <div class="navbar-menu">
+        <div class="navbar-end">
+            <div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">InfraFleet</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scenarios/index.html">Scenarios</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scenarios/chart_museum.html">Chart Museum</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../clusters/index.html">Deploying clusters</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../clusters/distributions/microk8s.html">MicroK8s</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../clusters/tools/kind.html">Kind</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tools</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/helm.html">Helm</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+        </div>
+        <button
+                type="button"
+                class="theme-toggle"
+                onclick="toggleAntoraTheme()"
+                aria-label="Toggle dark and light theme"
+                title="Toggle theme"
+        >
+            <span class="theme-toggle-icon" aria-hidden="true">◐</span>
+        </button>
+    </div>
+</div>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">InfraFleet</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scenarios/index.html">Scenarios</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scenarios/chart_museum.html">Chart Museum</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../clusters/index.html">Deploying clusters</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../clusters/distributions/microk8s.html">MicroK8s</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../clusters/tools/kind.html">Kind</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tools</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/helm.html">Helm</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">InfraFleet</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">InfraFleet</a></div>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">InfraFleet</a></li>
+    <li><a href="pod.html">Pod</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/esmaeilmirzaee/worthnotetakingapp/edit/i8t/main/1_projects/2InfraFleet/v2/modules/ROOT/pages/resources/pod.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Pod</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Pod is the most smallest unit of Kubernetes.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Pod creation</dt>
+<dd>
+<p>Something</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<div class="title">Normal Pod</div>
+<p><span class="image"><img src="../_images/normal-pod.svg" alt="Normal Pod"></span></p>
+</div>
+<div class="paragraph">
+<p>Generally, Pod is managed by Kubernetes API Server.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_static_pod"><a class="anchor" href="#_static_pod"></a>Static Pod</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <em>Static Pod</em> is a Pod that is managed by the <a href="">Kubelet</a> on each worker node.</p>
+</div>
+<div class="paragraph">
+<div class="title">Static Pod creation workflow</div>
+<p><span class="image"><img src="../_images/static-pod.svg" alt="Static Pod"></span></p>
+</div>
+<div class="listingblock">
+<div class="title">A typical manifest directory is</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ls /etc/kubernetes/manifests/</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">How does it work</dt>
+<dd>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a Pod manifest where the <a href="ROOT:pages/components/kubelet.adoc">kubelet</a> monitors</p>
+</li>
+<li>
+<p>As soon as <a href="ROOT:pages/components/kubelet.adoc">kubelet</a> detects the new manifest instructs the container runtime to run the Pod</p>
+</li>
+<li>
+<p>If the Pod fails, <a href="ROOT:pages/components/kubelet.adoc">kubelet</a> restarts it</p>
+</li>
+<li>
+<p>Periodically <a href="ROOT:pages/components/kubelet.adoc">kubelet</a> checks for changes</p>
+</li>
+</ol>
+</div>
+</dd>
+<dt class="hdlist1">Static Pods are the part of the process to run several components by <a href="ROOT:pages/clusters/tool/kubeadm.adoc">Kubeadm</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="ROOT:pages/components/kubelet.adoc">Kubernetes API Server</a></p>
+</li>
+<li>
+<p><a href="ROOT:pages/components/kubelet.adoc">Kubernetes Controller Manager</a></p>
+</li>
+<li>
+<p><a href="ROOT:pages/components/kubelet.adoc">Kubernetes Scheduler</a></p>
+</li>
+<li>
+<p><em>On the of using local etcd</em> <a href="ROOT:pages/components/kubelet.adoc">etcd</a></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p><a href="https://kubernetes.io/docs/concepts/workloads/pods/static-pods">Static Pods are crucial since the control plane can start without first requiring a functioning <a href="ROOT:pages/components/kubelet.adoc">Kubernetes API Server</a></a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_init_pod"><a class="anchor" href="#_init_pod"></a>Init Pod</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_side_card_pod"><a class="anchor" href="#_side_card_pod"></a>Side card Pod</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/styles/default.min.css">
+<!-- Highlight.js -->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/languages/go.min.js"></script>-->
+<script src="../_/js/theme.js"></script>
+<script src="../_/js/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script>hljs.highlightAll();</script>
+
+<!-- Highlight.js Line Numbers -->
+<script src="../_/js/highlightjs-line-numbers.min.js"></script>
+
+<!-- Initialize Highlight.js and line numbering -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (window.hljs) {
+            document.querySelectorAll('pre code').forEach(function (block) {
+                if (!block.classList.contains('hljs')) {
+                    hljs.highlightElement(block);
+                }
+            });
+
+            hljs.initLineNumbersOnLoad();
+        }
+    });
+</script>
+
+<footer class="custom-footer">
+    <div class="custom-footer-container">
+
+        <!-- Brand -->
+        <div class="footer-brand">
+            <a href="../" class="footer-logo">
+                InfraFleet<span>.</span>
+            </a>
+
+            <p class="footer-description">
+                Exploring infrastructure deployment, software engineering,
+                programming languages, system architecture, and modern development.
+            </p>
+
+            <div class="footer-social">
+                <a href="https://github.com/YOUR_USERNAME"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="GitHub">
+                    GitHub
+                </a>
+
+            </div>
+        </div>
+
+        <!-- Documentation -->
+        <div class="footer-column">
+            <h3>Documentation</h3>
+            <ul>
+                <li><a href="../">Home</a></li>
+            </ul>
+        </div>
+
+        <!-- Resources -->
+        <div class="footer-column">
+            <h3>Resources</h3>
+            <ul>
+                <li><a href="https://github.com/esmaeilmirzaee">GitHub</a></li>
+                <li><a href="https://docs.antora.org/">Antora</a></li>
+                <li><a href="https://asciidoc.org/">AsciiDoc</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>
+            &copy; 2026 InfraFleet.
+            Built with <a href="https://antora.org/">Antora</a>.
+        </p>
+
+        <p class="footer-tagline">
+            Engineering knowledge, one commit at a time.
+        </p>
+    </div>
+</footer>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

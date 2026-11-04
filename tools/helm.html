@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<link rel="stylesheet" href="../_/css/site.css">
+
+<script>
+    (function () {
+        try {
+            var theme = localStorage.getItem('antora-theme');
+            if (theme === 'dark' || theme === 'light') {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        } catch (e) {}
+    })();
+</script>
+
+<link rel="stylesheet" href="../_/css/site.css">
+<link rel="stylesheet" href="../_/css/linenumbering.css">
+
+  </head>
+  <body class="article">
+<div class="navbar">
+    <div class="navbar-brand">
+        <a class="navbar-item brand-name" href="https://i8t.run/">
+            <span>
+                <img src="https://i8t.run/_/img/style/logo.svg" alt="i8t logo">
+            </span>
+            <span>InfraFleet</span>
+        </a>
+    </div>
+
+    <div class="navbar-menu">
+        <div class="navbar-end">
+            <div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">InfraFleet</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scenarios/index.html">Scenarios</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scenarios/chart_museum.html">Chart Museum</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../clusters/index.html">Deploying clusters</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../clusters/distributions/microk8s.html">MicroK8s</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../clusters/tools/kind.html">Kind</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tools</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="helm.html">Helm</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+        </div>
+        <button
+                type="button"
+                class="theme-toggle"
+                onclick="toggleAntoraTheme()"
+                aria-label="Toggle dark and light theme"
+                title="Toggle theme"
+        >
+            <span class="theme-toggle-icon" aria-hidden="true">◐</span>
+        </button>
+    </div>
+</div>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">InfraFleet</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../scenarios/index.html">Scenarios</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../scenarios/chart_museum.html">Chart Museum</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../clusters/index.html">Deploying clusters</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../clusters/distributions/microk8s.html">MicroK8s</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../clusters/tools/kind.html">Kind</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tools</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="helm.html">Helm</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">InfraFleet</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">InfraFleet</a></div>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">InfraFleet</a></li>
+    <li>Tools</li>
+    <li><a href="helm.html">Helm</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/esmaeilmirzaee/worthnotetakingapp/edit/i8t/main/1_projects/2InfraFleet/v2/modules/ROOT/pages/tools/helm.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Helm</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Helm is the package manager for Kubernetes, the popular open source orchestration platform. Generally speaking, package managers help us integrating third-party or libraries easily into our codebase. Package managers like Helm therefore enable us to install and start using the software quickly without needing to figure out how to make it run or run well on the platform, since it has already been packaged up in an easy-to-use manner.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introducing_helm"><a class="anchor" href="#_introducing_helm"></a>Introducing Helm</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Helm is a package manager for Kubernetes. That is the way the Helm developers have describe Helm since the very first commits to the Git repository.</p>
+</div>
+<div class="paragraph">
+<p>Distributed locking, storage and caching became mainstream problems instead of points to academic interest.</p>
+</div>
+<div class="paragraph">
+<p>To install <a href="https://helm.io">Helm</a>, my preferred solution is referring to <a href="https://github.com/">release page of Helm on GitHub</a> then download the appropriate release. Next, extract the file to <code>/usr/local/bin</code>. Finally, make the <code>helm</code> binary executable using <code>sudo chmod +x /usr/local/bin/helm</code>. I always use the preceeding commands to make <a href="https://helm.io">Helm</a> up and running on my machine, though for installation please refer to <a href="https://helm.sh/docs/intro/install/">Helm installation documentation</a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Helm installation</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -C- -L https://get.helm.sh/helm-v4.3.1-linux-arm64.tar.gz -o /tmp/helm-v4.3.1-linux-arm64.tar.gz
+sudo tar --gzip --extract --verbose --file /tmp/helm-v4.3.1-linux-arm64.tar.gz --directory /usr/local/bin linux-arm64/helm --strip-components 1
+sudo chmod +x /usr/local/bin/helm
+helm --version</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Information</caption>
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 57.1428%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Flag</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">short</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gzip</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies <code>gunzip</code> format</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>z</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>extract</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extracts our files</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>x</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>verbose</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prints logs of the process</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-v</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>directory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path to extract file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-C</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>strip-components</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Strips <em>n</em> leading components from the file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✖️</p></td>
+</tr>
+</tbody>
+</table>
+<div id="helm_version" class="imageblock">
+<div class="content">
+<img src="../_images/helm_version_dark.png" alt="Helm version">
+</div>
+<div class="title">Figure 1. Helm version</div>
+</div>
+<div class="paragraph">
+<p>After the successful installation of <a href="https://helm.io">Helm</a> on our local machine, we can check for the version of <a href="https://helm.io">Helm</a> using <code>helm --version</code>; see <a href="#helm_version">Helm version</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_a_chart"><a class="anchor" href="#_create_a_chart"></a>Create a Chart</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To start our journey on <a href="https://helm.io">Helm</a>, we start by creating our chart using <a href="https://helm.io">Helm</a> command line. The <code>create</code> command generates a chart with the structure and files. The provided files are well-documented so we can use that to learn more about chart and how we can accomplish more. The generated directory, also, contains the templates to showcase multiple {k8s} manifests working together to deploy an application. One great thing about the generated chart is that the right way we can use <code>helm install</code> to deploy our chart.</p>
+</div>
+<div class="listingblock">
+<div class="title">Generate a chart</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">helm create /tmp/archegos
+exa --tree --group-directories --ignore-git /tmp/archegos  # List the generated chart directory</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the previous command we generated our first <a href="https://helm.io">Helm</a> chart named <em>archegos</em> <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>. The <a href="#archegos_list">Listing Helm chart</a> displays the content of created chart.</p>
+</div>
+<div id="archegos_list" class="imageblock">
+<div class="content">
+<img src="../_images/helm_list_directory.png" alt="Helm list directory">
+</div>
+<div class="title">Figure 2. Helm Chart listing</div>
+</div>
+<div class="paragraph">
+<p>At this step, we just need to work with a few of those files then we gradually work on other files and directories when we deepen our knowledge related to <a href="https://helm.io">Helm</a>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Step 1</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Filename</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Chart.yaml</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Includes <em>metadata</em> and some functionality controls the chart.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Directory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>templates</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">{k8s} manifests are stored inside <code>templates</code> directory.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>NOTES.txt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">After a successful chart installation the file is rendered to display the final message.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>values.yaml</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Holds values passed to templates. It can be overridden during the installation.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_containers_and_microservices"><a class="anchor" href="#_containers_and_microservices"></a>Containers and Microservices</h3>
+<div class="paragraph">
+<p>At the very heart of cloud native computing is this philosophical perspective that smaller discreate standalone services are preferable to large monolithic services that do everything.</p>
+</div>
+<div class="paragraph">
+<p>The cloud native approach is to write a series of smaller services, each relatively special purpose, and then join these services together to serve a higher-level purpose.</p>
+</div>
+<div class="paragraph">
+<p><em>representational state transfer (REST) API</em></p>
+</div>
+<div class="paragraph">
+<p><em>JavaScript Object Notation (JSON) over HTTP</em></p>
+</div>
+<div class="sect3">
+<h4 id="_microservices"><a class="anchor" href="#_microservices"></a>Microservices</h4>
+<div class="paragraph">
+<p>Imagine an ecommerce website. We can think of several tasks that jointly comprise this sort of website. There is a product catalog, user accounts and shopping cars, a payment processor that handles the security-sensitive process of montary transactions, and a fronted through which customers view items and select their purchases. There is also an administrative interface where the store owners manage inventory and fulfill orders.</p>
+</div>
+<div class="paragraph">
+<p>Taken to an extreme, an application is broken down into its smallest constituent parts, and each part is a program. This is the microservice architecture. Standing at the opposite end of the spectrum of a monolithic application, a microservice is responsible for handling only one small part of the overall application&#8217;s processing.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_containers"><a class="anchor" href="#_containers"></a>Containers</h4>
+<div class="paragraph">
+<p>It is common to compare and contrast a container and a virtual machine. A virtual machine runs an entire operating system in an isolated environment on a host machine. A container, in contrast, has its own filesystem, but is executed in the same operating system kernel as the host.</p>
+</div>
+<div class="paragraph">
+<p>Containers and microservices are, by design, a perfect match.</p>
+</div>
+<div class="paragraph">
+<p>Small discrete programs can be packages, along with all their dependencies, into <em>svelte (slender, slim)</em> containers.</p>
+</div>
+<div class="paragraph">
+<p>We want to inject tidbits of configuration into the container based on our present needs.</p>
+</div>
+<div class="paragraph">
+<p>Container technology is a sophisticated and fascinating space in its own right.The registry manages the layers.An image name can range from simple to complex.The tag typically refers to the version of software installed (v1.2.3), through tags are really just arbitrary strings.</p>
+</div>
+<div class="paragraph">
+<p>There is no guarantee that at any given time a tag refers to exactly a specific version of the software.</p>
+</div>
+<div class="paragraph">
+<p>Registries support fetching images by digest, which is SHA-256 or SHA-512 digest of the image&#8217;s layer information.</p>
+</div>
+<div class="paragraph">
+<p>The canonical format for combining is name:tag@digest, where only name is required.</p>
+</div>
+<div class="paragraph">
+<p>How do we best execute lots of containers? How do we best facilitate a microservice architecture where lots of containers need to work together? How do we judiciously share access to things like network attached storage, load balancers, and gateways? How do we manage injecting configuration infromation into lots of containers? And perhaps most importantly, how do we manage resources like memory, CPU, network bandwidth, and storage space?</p>
+</div>
+<div class="paragraph">
+<p>How one might manage distributing containers across multiple hosts, spreading the load equitably while still judiciously using resources? Or, more simply, how do we run the fewest possible hosts while running as many containers as we need?</p>
+</div>
+<div class="paragraph">
+<p>Mesos introduced Maratho; Docker created Swarm; Hashcorp released Nomad; and Google created an open source sibling to its internal Borg platform, and named this technology Kubernetes (the Greek word for a ship&#8217;s captain).</p>
+</div>
+<div class="paragraph">
+<p>Kubernetes introduced two concepts that set it apart from the crowd: declarative infrastructure and reconciliation loop.</p>
+</div>
+<div class="paragraph">
+<p>Kubernetes' design is that we think declaratively. we tell the scheduler (Kubernetes) what our desired state is, and Kubernetes takes care of converting that declarative statement into its own internal procedures.</p>
+</div>
+<div class="paragraph">
+<p>"I want this container running on this port whith this amount of CPU and some storage mounted at this location on the filesystem." Kubernetes works behind the scenes to wire everything up according to our declaration of what we want.</p>
+</div>
+<div class="paragraph">
+<p>Kubernetes introduces a higher-level abstraction called a <em>Pod</em>. A pod is an abstract envelop that describe a discrete unit of work. A pod descibes not just a container, but one or more containers (as well as their configuration and requirements) that together perform one unit of work:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: Pod
+metadata:
+    name: sample
+    namespace: helm
+spec:
+    containers:
+    - image: "nginx:latest"
+      name: sample-nginx</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>More frequently, a pod only has one container. But sometimes they have containers that do some preconfiguration for the main container comes online. These are called <em>init containers</em>. Other times, there are containers that run alongside the main container and provide auxiliary services. These are called <em>sidecar containers</em>. These are all considered part of the same pod.</p>
+</div>
+<div class="paragraph">
+<p>When expresses as YAML or JSON, are referred to as manifests. A manifest can contain one or more Kubernetes resources (also called objects or resource definitions).</p>
+</div>
+<div class="paragraph">
+<p>Configuration information in Kubernetes may be stored in ConfigMaps or, for sensitive information, Secrets. And the Pod&#8217;s definition may then relate those ConfigMaps and Secrets to environment variables or files within each container.</p>
+</div>
+<div class="paragraph">
+<p>A Secret is structurally similar to a ConfigMap, except that the values in the data section must be Base64 encoded. Pods are linked to configuration objects (like ConfigMap or Secret) using volumes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: sample-configuration-data
+data:
+    backgroundColor: blue
+    title: Learning Helm
+---
+apiVersion: v1
+kind: Pod
+metadata:
+    name: sample
+    namespace: helm
+spec:
+    volumrd:
+    - name: sample-configuration
+      configMap:
+        name: sample-configuration-data
+    containers:
+    - image: "nginx:latest"
+      name: sample-nginx
+      env:
+      - name: BACKGROUND_COLOR
+        valueFrom:
+            configMapKeyRef:
+                name: sample-configuration-data
+                key: backgroundColor</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A <em>Pod</em> is the "primitive" description of a runnable unit of work, with containers as part of that pod. But Kubernetes introduces higher-order concepts.</p>
+</div>
+<div class="paragraph">
+<p>A <em>Deployment</em> describes as application as a collection of identical pods. The Deployment is composed of some top-level configuration data as well as a template for how to construct a replica pod.</p>
+</div>
+<div class="paragraph">
+<p>We can attach a HorizontalPodAutoscaler (another Kubernetes resource type) and configure that to scale our pod bsae on resource usage.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: sample-deployment
+    labels:
+        app: sample-deployment
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: sample-deployment
+    template:
+        metadata:
+            labels:
+                app: sample-deployment
+        spec:
+            containers:
+            - image: "nginx:latest"
+              name: sample-deployment-nginx</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When it comes to attaching a Kubernetes application to other things on the network, Kubernetes proves <em>Service</em> definition. <em>Service</em> is a persistent network resource (sort of like a static IP) that persists even if the pod or pods attached to it go away.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: Service
+metadata:
+    name: sample-service
+spec:
+    selector:
+        app: sample-deployment
+    ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>While a <em>Service</em> is an abstract Kubernetes concept, behind the scenes it may be implemented as anything from a routing rule to an external load balancer.</p>
+</div>
+<div class="paragraph">
+<p>At the very core of Helm is this idea that all of those object can be packaged to be installed, updated, and deleted together.
+When we wrote Helm, we had three main goals:
+. Make it easy to go from "zero to Kubernetes"
+. Provide a package management system like operating systems have
+. Emphasize security and configurability for deploying applications to Kubernetes</p>
+</div>
+<div class="paragraph">
+<p>In our view, a new Helm user with an existing Kubernetes cluster should be able to go from download to an installed application in five minutes or less.</p>
+</div>
+<div class="paragraph">
+<p>We initially modeled Helm after Homebrew (a package manager for macOS) and APT (the package manager for Debian). But as Helm as matured, we have sought to learn from as many different package managers as we can.</p>
+</div>
+<div class="paragraph">
+<p>Another notion that is rare in typical operating systems, but is central to Kubernetes, is the idea of a namespace. In Kubernetes, a namespace is an arbitrary grouping mechanism that defines a boundary between the things inside the namespace and the things outside.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Let&#8217;s use a chart to learn about a variety of Helm chart-related scenarios. In this section, we try to deploy a WordPress application.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_chapter_3"><a class="anchor" href="#_chapter_3"></a>Chapter 3</h2>
+<div class="sectionbody">
+<div class="paragraph WARNING">
+<p>What happens to Secret when we uninstall a chart?</p>
+</div>
+<div class="paragraph">
+<p>By default, <a href="https://helm.io">Helm</a> tracks up to 10 revisions of each installation. Once an installation exceeds the allowed maximum release records, it removes exceeding ones. Each release record, a <a href="https://helm.io">Helm</a> Secret inside our cluster, contains required information to re-create the {k8s} objects for that revision; it contains metadata information about the relevant release.</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample release record</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: Secret
+data:
+    release:
+metadata:
+    creationTimestamp: ""
+    labels:
+... Fill it</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">The lifecycle of a release can display different statuses</dt>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Status</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pending-install</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A release marked version 1 until it sends to {k8s} by <a href="https://helm.io">Helm</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">deployed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">As soon as our manifest accepts to the {k8s} cluster, <a href="https://helm.io">Helm</a> updates record and marking it as deployed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pending-upgrade</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When we send a Helm upgrade request, a new release is created for the installation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">superseded</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When the last deployed is updated successfully, its release changes ti superseded and the new version hold deployed status.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pending-rollback</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A rollback is created, a new release record is created then its status change to <em>prnding-rollback</em> waiting for {k8s} accepts the release manifest. Then its status updated to <em>deployed</em> and the last release is marked as <em>superseded</em>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uninstalling</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When a <a href="https://helm.io">Helm</a> uninstalling command executes, the most latest release marked as uninstalling.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uninstalled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When the uninstall command is successful and the history is preserved the recent release&#8217;s status reads uninstalled.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">failed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://helm.io">Helm</a> marks a release as failed as soon as {k8s} rejects the submitted manifest.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Every <a href="https://helm.io">Helm</a> manifest submits to the {k8s} cluster incremented the revision by 1, even the failed releases increments the revision.
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. <a href="https://helm.io">Helm</a> commands</caption>
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 57.1428%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>helm get notes &lt;release name&gt;</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prints the release note of a successful operation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--revision 3</code> ?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>helm get values&lt;release name&gt;</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Displays the recent values used during the installation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>--revision 2</code>, <code>--all</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>helm inspect values &lt;chart name&gt;</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prints the default values of a chart name</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>helm get manifest &lt;release name</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the manifest generated from the template</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>helm history &lt;release name&gt;</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>helm rollback &lt;relese name&gt; &lt;revision&gt;</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>helm uninstall &lt;release name&gt; --keep-history</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>helm install bitnami/wordpress --generate-name</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://helm.io">Helm</a> generates a name with a combination of the chart name and a timestamp; <code>--name-template</code> flag allows us to change the combination.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><code>helm upgrade</code> has a flag <code>--install</code> that at first upgrade command tries to update a release if the release (provided name in the namespace) doesn&#8217;t exist it installs the release. The <code>--install</code> flag in someways are dangerous since there is no checking mechanism in <a href="https://helm.io">Helm</a> to assure the provided name belongs to the release intended to be updated.</p>
+</div>
+<div class="paragraph">
+<p>As soon as {k8s} API server accepts the manifests, <a href="https://helm.io">Helm</a> marks a release as successful, although many issues could happen on the {k8s} side. For example, busy nodes, a slow scheduler, slow or failed image pulls, and <em>outright failure of a container to start</em>. Since chart benefits the usage of different resources, for example, <em>DaemonSets</em>, <em>Deployments</em>, and <em>StatefulSets</em> all create Pods. <code>--wait</code> flag improves the installation process by adding one more step required from {k8s} API Server, all of the Pods created by the chart has <strong>Running</strong> state before <em>timeout</em> expires. It is a good strategy to use a longer timeout (more than 5 minutes) especially when CI is using the chart. Adding a longer <code>--timeout</code> prevents the earlier failure on different reasons such as network latency, image pull failure, and so on. <code>--atomic</code> flag improves <code>--wait</code> command not only it replicates <code>--wait</code> flag feature but also when an installation fails it performs an automatic rollback to the last successful release.</p>
+</div>
+<div class="admonitionblock warning text-center">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+It&#8217;s an advised strategy to use longer <code>--timeout</code>, especially when using in <em>CI</em>. Since, both <code>--wait</code> and <code>--atomic</code> flags can be a source of failure for transitive reasons that may be resolved by {k8s} itself.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>By default, {k8s} Deployment restarts Pods when certain fields are updated, though, sometimes we require to recreate Pods to do so we can use <code>--force</code> flag. <code>--force</code> flag enforces {k8s} API Server to <em>recreate Pods by removing the existing ones so it causes downtime</em>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<a href="https://helm.io">Helm</a> core maintainers advised against using <code>--force</code> flag in <em>CI</em> pipelines in deploy productions.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Failing <a href="https://helm.io">Helm</a> installation requests have the risk of unused objects hanging around so <code>--cleanup-on-fail</code> flag removes every object that was newly created during the installation. Although it keeps our deployment tidy and clean, it makes debuging a little harder.</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. It is a greek word meaning that <em>founder</em>, <em>author</em>, <em>pioneer</em>, and <em>leader</em>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/styles/default.min.css">
+<!-- Highlight.js -->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/languages/go.min.js"></script>-->
+<script src="../_/js/theme.js"></script>
+<script src="../_/js/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script>hljs.highlightAll();</script>
+
+<!-- Highlight.js Line Numbers -->
+<script src="../_/js/highlightjs-line-numbers.min.js"></script>
+
+<!-- Initialize Highlight.js and line numbering -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (window.hljs) {
+            document.querySelectorAll('pre code').forEach(function (block) {
+                if (!block.classList.contains('hljs')) {
+                    hljs.highlightElement(block);
+                }
+            });
+
+            hljs.initLineNumbersOnLoad();
+        }
+    });
+</script>
+
+<footer class="custom-footer">
+    <div class="custom-footer-container">
+
+        <!-- Brand -->
+        <div class="footer-brand">
+            <a href="../" class="footer-logo">
+                InfraFleet<span>.</span>
+            </a>
+
+            <p class="footer-description">
+                Exploring infrastructure deployment, software engineering,
+                programming languages, system architecture, and modern development.
+            </p>
+
+            <div class="footer-social">
+                <a href="https://github.com/YOUR_USERNAME"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="GitHub">
+                    GitHub
+                </a>
+
+            </div>
+        </div>
+
+        <!-- Documentation -->
+        <div class="footer-column">
+            <h3>Documentation</h3>
+            <ul>
+                <li><a href="../">Home</a></li>
+            </ul>
+        </div>
+
+        <!-- Resources -->
+        <div class="footer-column">
+            <h3>Resources</h3>
+            <ul>
+                <li><a href="https://github.com/esmaeilmirzaee">GitHub</a></li>
+                <li><a href="https://docs.antora.org/">Antora</a></li>
+                <li><a href="https://asciidoc.org/">AsciiDoc</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>
+            &copy; 2026 InfraFleet.
+            Built with <a href="https://antora.org/">Antora</a>.
+        </p>
+
+        <p class="footer-tagline">
+            Engineering knowledge, one commit at a time.
+        </p>
+    </div>
+</footer>
+<script id="site-script" src="../_/js/site.js" data-ui-root-path="../_"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

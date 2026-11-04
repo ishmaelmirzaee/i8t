@@ -1,0 +1,1780 @@
+/* ============================================================
+   INFRAFLEET DOCS - Antora standalone stylesheet
+   Light / dark theme, self-contained layout (no dependency on
+   Antora's default UI CSS).
+
+   Page skeleton this file expects (Antora default UI markup):
+   body
+     header.header > nav.navbar
+     div.body
+       div.nav-container > aside.nav
+       main > div.toolbar + div.content (aside.toc + article.doc)
+     footer (.footer / .custom-footer)   <- must be a direct child of body
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. FONTS
+   ------------------------------------------------------------ */
+@font-face {
+    font-family: "Source Sans Pro";
+    src: url("../font/SourceSansPro-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Source Sans Pro";
+    src: url("../font/SourceSansPro-Semibold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Source Sans Pro";
+    src: url("../font/SourceSansPro-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Source Sans Pro";
+    src: url("../font/SourceSansPro-Italic.ttf") format("truetype");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* ------------------------------------------------------------
+   2. DESIGN TOKENS - LIGHT (default)
+   ------------------------------------------------------------ */
+:root {
+    color-scheme: light;
+
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-soft: #dbeafe;
+
+    --bg: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    --bg-elevated: #ffffff;
+
+    --text: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --heading: #0f172a;
+
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+
+    --code-bg: #f1f5f9;
+    --code-text: #334155;
+    --code-border: #e2e8f0;
+    --code-inline-bg: #eaf0f8;
+
+    --syntax-comment: #64748b;
+    --syntax-keyword: #7c3aed;
+    --syntax-string: #15803d;
+    --syntax-number: #c2410c;
+    --syntax-function: #0369a1;
+    --syntax-variable: #be185d;
+    --syntax-operator: #475569;
+    --syntax-class: #0f766e;
+
+    --sidebar-bg: #f8fafc;
+    --sidebar-active: #dbeafe;
+    --sidebar-text: #475569;
+    --header-bg: #ffffff;
+    --table-stripe: #f8fafc;
+    --blockquote-bg: #f8fafc;
+    --blockquote-border: #2563eb;
+    --mark-bg: rgb(250 204 21 / 35%);
+
+    --success: #15803d;
+    --warning: #b45309;
+    --danger: #dc2626;
+    --info: #0369a1;
+
+    --navbar-height: 4rem;
+    --toolbar-height: 3rem;
+    --sidebar-width: 280px;
+    --toc-width: 15rem;
+    --content-width: 920px;
+
+    --font-sans: "Source Sans Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "SFMono-Regular", ui-monospace, Menlo, Consolas, "Liberation Mono", monospace;
+
+    --radius-sm: 4px;
+    --radius-md: 7px;
+    --radius-lg: 12px;
+
+    --shadow-sm: 0 1px 3px rgb(15 23 42 / 6%);
+    --shadow-md: 0 4px 12px rgb(15 23 42 / 8%);
+}
+
+/* ------------------------------------------------------------
+   3. DESIGN TOKENS - DARK (manual toggle)
+   ------------------------------------------------------------ */
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    --accent: #60a5fa;
+    --accent-hover: #93c5fd;
+    --accent-soft: #172d4c;
+
+    --bg: #0b1120;
+    --bg-secondary: #111827;
+    --bg-tertiary: #1e293b;
+    --bg-elevated: #151e2e;
+
+    --text: #cbd5e1;
+    --text-secondary: #94a3b8;
+    --text-muted: #7c8ba1;
+    --heading: #f1f5f9;
+
+    --border: #263449;
+    --border-strong: #334155;
+
+    --code-bg: #111827;
+    --code-text: #dbeafe;
+    --code-border: #263449;
+    --code-inline-bg: #1e293b;
+
+    --syntax-comment: #8492a6;
+    --syntax-keyword: #c4a5ff;
+    --syntax-string: #a5d6a7;
+    --syntax-number: #ffb86c;
+    --syntax-function: #82cfff;
+    --syntax-variable: #ff8fb1;
+    --syntax-operator: #cbd5e1;
+    --syntax-class: #5eead4;
+
+    --sidebar-bg: #0f1726;
+    --sidebar-active: #172d4c;
+    --sidebar-text: #a6b4c8;
+    --header-bg: #0b1120;
+    --table-stripe: #111827;
+    --blockquote-bg: #111827;
+    --blockquote-border: #60a5fa;
+    --mark-bg: rgb(250 204 21 / 22%);
+
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --danger: #f87171;
+    --info: #38bdf8;
+
+    --shadow-sm: 0 1px 3px rgb(0 0 0 / 20%);
+    --shadow-md: 0 4px 12px rgb(0 0 0 / 25%);
+}
+
+/* ------------------------------------------------------------
+   4. DESIGN TOKENS - DARK (automatic, follows the OS)
+   ------------------------------------------------------------ */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]):not([data-theme="dark"]) {
+        color-scheme: dark;
+
+        --accent: #60a5fa;
+        --accent-hover: #93c5fd;
+        --accent-soft: #172d4c;
+
+        --bg: #0b1120;
+        --bg-secondary: #111827;
+        --bg-tertiary: #1e293b;
+        --bg-elevated: #151e2e;
+
+        --text: #cbd5e1;
+        --text-secondary: #94a3b8;
+        --text-muted: #7c8ba1;
+        --heading: #f1f5f9;
+
+        --border: #263449;
+        --border-strong: #334155;
+
+        --code-bg: #111827;
+        --code-text: #dbeafe;
+        --code-border: #263449;
+        --code-inline-bg: #1e293b;
+
+        --syntax-comment: #8492a6;
+        --syntax-keyword: #c4a5ff;
+        --syntax-string: #a5d6a7;
+        --syntax-number: #ffb86c;
+        --syntax-function: #82cfff;
+        --syntax-variable: #ff8fb1;
+        --syntax-operator: #cbd5e1;
+        --syntax-class: #5eead4;
+
+        --sidebar-bg: #0f1726;
+        --sidebar-active: #172d4c;
+        --sidebar-text: #a6b4c8;
+        --header-bg: #0b1120;
+        --table-stripe: #111827;
+        --blockquote-bg: #111827;
+        --blockquote-border: #60a5fa;
+        --mark-bg: rgb(250 204 21 / 22%);
+
+        --success: #4ade80;
+        --warning: #fbbf24;
+        --danger: #f87171;
+        --info: #38bdf8;
+
+        --shadow-sm: 0 1px 3px rgb(0 0 0 / 20%);
+        --shadow-md: 0 4px 12px rgb(0 0 0 / 25%);
+    }
+}
+
+/* ------------------------------------------------------------
+   5. RESET & BASE
+   ------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--navbar-height) + var(--toolbar-height) + 1rem);
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 180ms ease, color 180ms ease;
+
+    /* Vertical stack: header / .body / footer */
+    display: flex;
+    flex-direction: column;
+}
+
+::selection {
+    background: var(--accent);
+    color: #ffffff;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 150ms ease;
+}
+a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+img,
+svg,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+hr {
+    height: 1px;
+    border: 0;
+    background: var(--border);
+    margin: 2.5rem 0;
+}
+
+/* ------------------------------------------------------------
+   6. HEADER & NAVBAR
+   ------------------------------------------------------------ */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    flex: 0 0 auto;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    height: var(--navbar-height);
+    padding: 0 1.5rem;
+    background: var(--header-bg);
+    border: 0;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+.navbar .navbar-item,
+.navbar .navbar-link,
+.navbar-brand a {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 0.85rem;
+    color: var(--heading);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.navbar .navbar-item:hover,
+.navbar .navbar-link:hover {
+    color: var(--accent);
+    background: var(--bg-secondary);
+    text-decoration: none;
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.navbar-start,
+.navbar-end {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.navbar-start {
+    margin-right: auto;
+}
+
+/* Hamburger (mobile only) */
+.navbar-burger {
+    display: none;
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    color: var(--heading);
+}
+.navbar-burger span {
+    position: absolute;
+    left: 0.6rem;
+    right: 0.6rem;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+}
+.navbar-burger span:nth-child(1) { top: 0.8rem; }
+.navbar-burger span:nth-child(2) { top: 1.15rem; }
+.navbar-burger span:nth-child(3) { top: 1.5rem; }
+
+/* Theme toggle */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 38px;
+    height: 38px;
+    margin: 0 0.5rem;
+    padding: 0;
+    color: var(--text);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    font-size: 20px;
+    line-height: 1;
+    transition: background 150ms ease, border-color 150ms ease;
+}
+.theme-toggle:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--accent);
+}
+
+/* ------------------------------------------------------------
+   7. PAGE BODY: SIDEBAR + MAIN (the core layout)
+   ------------------------------------------------------------ */
+.body {
+    display: flex;
+    flex: 1 0 auto;
+    align-items: stretch;
+    width: 100%;
+    background: var(--bg);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    min-width: 0; /* lets wide code blocks scroll instead of stretching the page */
+}
+
+/* ------------------------------------------------------------
+   8. SIDEBAR NAVIGATION
+   ------------------------------------------------------------ */
+.nav-container {
+    flex: 0 0 var(--sidebar-width);
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+}
+
+.nav {
+    position: sticky;
+    top: var(--navbar-height);
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--navbar-height));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.nav .panels {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.nav-panel-menu {
+    flex: 1 1 auto;
+    overflow-y: auto;
+}
+
+.nav-menu {
+    padding: 1rem 0.75rem;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--sidebar-text);
+}
+
+.nav-menu h3.title,
+.nav-menu .title {
+    margin: 0.25rem 0.5rem 0.85rem;
+    padding: 0;
+    border: 0;
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+}
+.nav-menu .title a {
+    color: var(--heading);
+}
+
+.nav-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.nav-list .nav-list {
+    margin-left: 0.6rem;
+    padding-left: 0.4rem;
+    border-left: 1px solid var(--border);
+}
+
+.nav-item {
+    position: relative;
+    margin: 0;
+}
+
+/* Collapsible groups: collapsed unless active */
+.nav-item:not(.is-active) > .nav-list {
+    display: none;
+}
+
+.nav-text,
+.nav-link,
+.nav-item > a {
+    display: block;
+    padding: 0.35rem 0.6rem 0.35rem 1.5rem;
+    color: var(--sidebar-text);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+}
+span.nav-text {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+.nav-item > a:hover,
+.nav-link:hover {
+    color: var(--accent);
+    background: var(--bg-tertiary);
+    text-decoration: none;
+}
+
+.nav-item.is-current-page > a,
+.nav-item.is-current-page > .nav-link {
+    color: var(--accent);
+    background: var(--sidebar-active);
+    font-weight: 600;
+}
+
+/* Chevron toggle, drawn in CSS (no images needed) */
+.nav-item-toggle {
+    position: absolute;
+    top: 0.35rem;
+    left: 0.1rem;
+    width: 1.3rem;
+    height: 1.5rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    color: var(--text-muted);
+}
+.nav-item-toggle::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: -0.3rem 0 0 -0.25rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(-45deg);
+    transition: transform 150ms ease;
+}
+.nav-item.is-active > .nav-item-toggle::before {
+    transform: rotate(45deg);
+}
+
+/* "Explore" panel (component / version switcher) at the sidebar bottom */
+.nav-panel-explore {
+    flex: 0 0 auto;
+    border-top: 1px solid var(--border);
+    background: var(--sidebar-bg);
+}
+.nav-panel-explore .context {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.nav-panel-explore .components {
+    display: none;
+    margin: 0;
+    padding: 0 1rem 0.75rem;
+    list-style: none;
+    font-size: 0.9rem;
+}
+.nav-panel-explore.is-active .components {
+    display: block;
+}
+.nav-panel-explore .components .title a {
+    display: block;
+    padding: 0.3rem 0.5rem;
+}
+.nav-panel-explore .versions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0 0 0.5rem 0.5rem;
+    padding: 0;
+    list-style: none;
+}
+.nav-panel-explore .version a {
+    padding: 0.05rem 0.45rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+}
+.nav-panel-explore .version.is-current a {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* Drawer button, desktop: hidden */
+.nav-toggle {
+    display: none;
+}
+
+/* ------------------------------------------------------------
+   9. TOOLBAR (breadcrumbs + edit link)
+   ------------------------------------------------------------ */
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: var(--toolbar-height);
+    padding: 0.5rem 2rem;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+
+.breadcrumbs {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+.breadcrumbs ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--text-muted);
+}
+.breadcrumbs li {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+}
+.breadcrumbs li + li::before {
+    content: "/";
+    margin: 0 0.5rem 0 0;
+    color: var(--border-strong);
+}
+.breadcrumbs a {
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+.breadcrumbs a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+.breadcrumbs li:last-child,
+.breadcrumbs a.current,
+.breadcrumbs [aria-current="page"] {
+    color: var(--heading);
+    font-weight: 600;
+}
+
+.edit-this-page {
+    flex: 0 0 auto;
+    margin-left: auto;
+    white-space: nowrap;
+}
+.edit-this-page a {
+    font-weight: 600;
+}
+
+.page-versions {
+    flex: 0 0 auto;
+}
+
+/* ------------------------------------------------------------
+   10. CONTENT AREA + RIGHT-HAND TOC
+   ------------------------------------------------------------ */
+.content {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2.5rem;
+    width: 100%;
+    padding: 0 2rem;
+}
+
+.doc {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 2rem 0 3rem;
+}
+
+.doc .sect1 {
+    margin-bottom: 2.5rem;
+}
+.doc .paragraph {
+    margin-bottom: 1.25rem;
+}
+.doc .paragraph p {
+    max-width: 85ch;
+}
+.doc .ulist,
+.doc .olist {
+    margin-bottom: 1.5rem;
+}
+.doc ul,
+.doc ol {
+    padding-left: 1.5rem;
+}
+.doc li {
+    margin-bottom: 0.35em;
+}
+.doc li::marker {
+    color: var(--accent);
+}
+.doc li > p {
+    margin-bottom: 0.5em;
+}
+
+/* TOC sidebar (JS-generated "Contents"): right column on wide screens */
+.toc.sidebar {
+    flex: 0 0 var(--toc-width);
+    width: var(--toc-width);
+    order: 2;
+    position: sticky;
+    top: calc(var(--navbar-height) + var(--toolbar-height) + 1.5rem);
+    max-height: calc(100vh - var(--navbar-height) - var(--toolbar-height) - 3rem);
+    overflow-y: auto;
+    padding: 2rem 0 1rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+.toc.sidebar .toc-menu h3 {
+    margin: 0 0 0.75rem;
+    padding: 0;
+    border: 0;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+}
+.toc.sidebar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-left: 1px solid var(--border);
+}
+.toc.sidebar li {
+    margin: 0;
+}
+.toc.sidebar a {
+    display: block;
+    padding: 0.3rem 0.75rem;
+    margin-left: -1px;
+    border-left: 2px solid transparent;
+    color: var(--text-secondary);
+}
+.toc.sidebar a:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+.toc.sidebar a.is-active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 600;
+}
+
+/* Below 1280px there is no room for a right column: show the TOC above the article */
+@media (max-width: 1279px) {
+    .content {
+        flex-direction: column;
+        gap: 0;
+    }
+    .toc.sidebar {
+        order: 0;
+        position: static;
+        width: 100%;
+        max-width: var(--content-width);
+        flex: none;
+        max-height: none;
+        margin: 0 auto;
+        padding: 1.5rem 0 0;
+    }
+}
+
+/* Inline "Contents" generated by :toc: duplicates the sidebar TOC.
+   Uncomment to hide it on desktop widths:
+@media (min-width: 1280px) { .doc #toc { display: none; } }
+*/
+
+/* ------------------------------------------------------------
+   11. HEADINGS & TEXT
+   ------------------------------------------------------------ */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--heading);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    margin-top: 1.8em;
+    margin-bottom: 0.65em;
+}
+
+.doc > h1.page,
+.doc h1 {
+    margin-top: 0;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    letter-spacing: -0.04em;
+}
+
+h2 {
+    font-size: 2rem;
+    padding-bottom: 0.4em;
+    border-bottom: 1px solid var(--border);
+}
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.2rem; }
+h5, h6 { font-size: 1.05rem; }
+
+/* Neutralise stray heading styles inside widgets */
+.nav-menu h3,
+.toc h3,
+.custom-footer h3 {
+    margin-top: 0;
+}
+
+p {
+    margin: 0 0 1.25em;
+}
+
+strong,
+b {
+    color: var(--heading);
+    font-weight: 700;
+}
+
+mark {
+    background: var(--mark-bg);
+    color: inherit;
+    padding: 0.1em 0.3em;
+    border-radius: var(--radius-sm);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+kbd {
+    padding: 0.1em 0.45em;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-strong);
+    border-bottom-width: 2px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+}
+
+/* ------------------------------------------------------------
+   12. INLINE CODE, CODE BLOCKS, COPY BUTTON
+   ------------------------------------------------------------ */
+:not(pre) > code,
+:not(pre) > tt {
+    color: var(--accent);
+    background: var(--code-inline-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.12em 0.4em;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    overflow-wrap: anywhere;
+}
+
+pre {
+    position: relative;
+    overflow-x: auto;
+    background: var(--code-bg) !important;
+    color: var(--code-text);
+    border: 1px solid var(--code-border);
+    border-radius: var(--radius-md);
+    padding: 1.4rem 1.5rem;
+    margin: 1.5rem 0 2rem;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.75;
+    tab-size: 4;
+    box-shadow: var(--shadow-sm);
+}
+
+pre code,
+pre code.hljs {
+    background: transparent !important;
+    color: inherit !important;
+    border: 0 !important;
+    padding: 0 !important;
+    font-family: inherit;
+    font-size: inherit;
+    white-space: pre;
+}
+
+.listingblock,
+.literalblock {
+    position: relative;
+    margin: 1.5rem 0 2rem;
+}
+.listingblock pre,
+.literalblock pre {
+    margin: 0;
+}
+.listingblock > .title {
+    margin-bottom: 0.4rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.listingblock > .content {
+    overflow: scroll;
+}
+
+/* Language label + copy button live in an overlay on the block */
+.source-toolbox {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.6rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 150ms ease;
+}
+.listingblock:hover .source-toolbox,
+.source-toolbox:focus-within {
+    opacity: 1;
+}
+.source-lang {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: lowercase;
+}
+
+.copy-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+}
+.copy-button:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+/* The icon image is missing from the UI bundle (it renders as a broken image),
+   so hide it and draw the icon with CSS instead. */
+.copy-button img {
+    display: none;
+}
+.copy-button::before {
+    content: "";
+    width: 0.8rem;
+    height: 0.9rem;
+    border: 2px solid currentColor;
+    border-radius: 2px;
+    box-shadow: 3px -3px 0 -1px var(--bg-elevated), 3px -3px 0 0 currentColor;
+}
+.copy-toast {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 0.5rem);
+    display: none;
+    padding: 0.2rem 0.6rem;
+    transform: translateY(-50%);
+    background: var(--heading);
+    color: var(--bg);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+.copy-button.clicked .copy-toast {
+    display: block;
+}
+
+/* Callout numbers inside code */
+.conum[data-value] {
+    display: inline-block;
+    min-width: 1.3em;
+    height: 1.3em;
+    line-height: 1.3em;
+    text-align: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.75em;
+    font-style: normal;
+    font-weight: 700;
+}
+.conum[data-value]::after {
+    content: attr(data-value);
+}
+.conum[data-value] + b {
+    display: none;
+}
+
+/* ------------------------------------------------------------
+   13. SYNTAX HIGHLIGHTING
+   ------------------------------------------------------------ */
+.hljs-comment, .hljs-quote, .cm-comment {
+    color: var(--syntax-comment);
+    font-style: italic;
+}
+.hljs-keyword, .hljs-selector-tag, .hljs-built_in, .cm-keyword {
+    color: var(--syntax-keyword);
+}
+.hljs-string, .hljs-attr, .hljs-template-tag, .cm-string {
+    color: var(--syntax-string);
+}
+.hljs-number, .hljs-literal, .hljs-symbol, .cm-number {
+    color: var(--syntax-number);
+}
+.hljs-title, .hljs-title.function_, .hljs-function, .cm-def {
+    color: var(--syntax-function);
+}
+.hljs-variable, .hljs-params, .hljs-property, .cm-variable {
+    color: var(--syntax-variable);
+}
+.hljs-operator, .hljs-punctuation {
+    color: var(--syntax-operator);
+}
+.hljs-class, .hljs-title.class_, .cm-type {
+    color: var(--syntax-class);
+}
+.hljs-type, .hljs-meta, .hljs-tag {
+    color: var(--syntax-keyword);
+}
+.hljs-addition { color: var(--success); }
+.hljs-deletion { color: var(--danger); }
+
+/* ------------------------------------------------------------
+   14. TABLES, QUOTES, ADMONITIONS, EXAMPLE & SIDEBAR BLOCKS
+   ------------------------------------------------------------ */
+table.tableblock {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0 2rem;
+    font-size: 0.95em;
+    border: 1px solid var(--border);
+}
+table.tableblock th {
+    background: var(--bg-tertiary);
+    color: var(--heading);
+    font-weight: 700;
+    text-align: left;
+}
+table.tableblock td,
+table.tableblock th {
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border);
+    vertical-align: top;
+}
+table.tableblock tr:nth-child(even) td {
+    background: var(--table-stripe);
+}
+table.tableblock p.tableblock {
+    margin: 0;
+}
+
+blockquote,
+.quoteblock {
+    background: var(--blockquote-bg);
+    border-left: 4px solid var(--blockquote-border);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    color: var(--text-secondary);
+}
+.quoteblock blockquote {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+}
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+.quoteblock .attribution {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.admonitionblock {
+    margin: 1.5rem 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+}
+.admonitionblock > table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.admonitionblock td.icon {
+    width: 1%;
+    padding: 1rem 0 1rem 1rem;
+    vertical-align: top;
+    white-space: nowrap;
+}
+.admonitionblock td.icon i {
+    font-style: normal;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.admonitionblock td.icon i::before {
+    content: attr(title);
+}
+.admonitionblock td.content {
+    padding: 1rem;
+    display: inline-block;
+}
+.admonitionblock td.content > :last-child {
+    margin-bottom: 0;
+}
+.admonitionblock .title {
+    font-weight: 700;
+    color: var(--heading);
+}
+.admonitionblock.note { border-left: 4px solid var(--info); }
+.admonitionblock.note td.icon { color: var(--info); }
+.admonitionblock.tip { border-left: 4px solid var(--success); }
+.admonitionblock.tip td.icon { color: var(--success); }
+.admonitionblock.warning { border-left: 4px solid var(--warning); }
+.admonitionblock.warning td.icon { color: var(--warning); }
+.admonitionblock.important,
+.admonitionblock.caution { border-left: 4px solid var(--danger); }
+.admonitionblock.important td.icon,
+.admonitionblock.caution td.icon { color: var(--danger); }
+
+.exampleblock {
+    margin: 1.5rem 0;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+.exampleblock > .title {
+    margin: 0;
+    padding: 0.6rem 1.25rem;
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border);
+    color: var(--heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+.exampleblock > .content {
+    padding: 1rem 1.25rem;
+}
+.exampleblock > .content > :last-child {
+    margin-bottom: 0;
+}
+
+.sidebarblock {
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+}
+.sidebarblock > .content > .title {
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+    color: var(--heading);
+}
+
+.imageblock {
+    margin: 1.5rem 0;
+}
+.imageblock img {
+    border-radius: var(--radius-md);
+}
+.imageblock .title,
+.tableblock + .title {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.dlist dt {
+    margin-top: 1rem;
+    color: var(--heading);
+    font-weight: 700;
+}
+.dlist dd {
+    margin: 0.25rem 0 0 1.5rem;
+}
+
+/* Prev / next page links */
+nav.pagination {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.95rem;
+}
+nav.pagination span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+nav.pagination .next {
+    margin-left: auto;
+    text-align: right;
+}
+
+/* ------------------------------------------------------------
+   15. SEARCH
+   ------------------------------------------------------------ */
+.search-input {
+    padding: 0.45rem 0.8rem;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+}
+.search-input:focus {
+    border-color: var(--accent);
+    outline: 2px solid var(--accent-soft);
+}
+
+/* ------------------------------------------------------------
+   16. FOOTER (always full width, always below .body)
+   ------------------------------------------------------------ */
+.footer,
+.custom-footer {
+    flex: 0 0 auto;
+    width: 100%;
+    clear: both;
+}
+
+.footer {
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+}
+.footer a {
+    color: var(--accent);
+}
+/* If the custom footer lives inside .footer, drop the outer box */
+.footer:has(.custom-footer) {
+    padding: 0;
+    background: none;
+    border: 0;
+}
+
+.custom-footer {
+    margin-top: 0;
+    padding: 3.5rem 2rem 1.5rem;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+}
+
+.custom-footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem;
+    padding-bottom: 3rem;
+}
+
+.footer-logo {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: var(--heading);
+    font-size: 1.65rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    text-decoration: none;
+}
+.footer-logo:hover {
+    text-decoration: none;
+}
+.footer-logo span {
+    color: var(--accent);
+}
+
+.footer-description {
+    max-width: 360px;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.footer-social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}
+.footer-social a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 150ms ease;
+}
+.footer-social a:hover {
+    color: var(--accent);
+}
+
+.footer-column h3 {
+    margin: 0 0 1.2rem;
+    padding: 0;
+    border: 0;
+    color: var(--heading);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+.footer-column ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.footer-column li {
+    margin-bottom: 0.7rem;
+}
+.footer-column a {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    transition: color 150ms ease;
+}
+.footer-column a:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.footer-bottom p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+.footer-bottom a {
+    color: var(--accent);
+}
+.footer-tagline {
+    font-style: italic;
+}
+
+/* ------------------------------------------------------------
+   17. RESPONSIVE
+   ------------------------------------------------------------ */
+
+/* Tablet and phone: sidebar becomes an off-canvas drawer */
+@media (max-width: 1023px) {
+    .nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        flex: 0 0 auto;
+        width: 2.25rem;
+        height: 2.25rem;
+        padding: 0;
+        background: transparent;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+    }
+    .nav-toggle::before {
+        content: "";
+        width: 1rem;
+        height: 2px;
+        background: var(--text-secondary);
+        box-shadow: 0 -5px 0 var(--text-secondary), 0 5px 0 var(--text-secondary);
+    }
+
+    .nav-container {
+        position: fixed;
+        top: var(--navbar-height);
+        bottom: 0;
+        left: 0;
+        z-index: 150;
+        width: min(var(--sidebar-width), 85vw);
+        flex: none;
+        transform: translateX(-100%);
+        transition: transform 200ms ease;
+        box-shadow: var(--shadow-md);
+    }
+    .nav-container.is-active,
+    .is-active > .nav-container {
+        transform: none;
+    }
+    .nav {
+        top: 0;
+        height: 100%;
+    }
+
+    .toolbar {
+        padding: 0.5rem 1rem;
+    }
+    .content {
+        padding: 0 1.25rem;
+    }
+
+    /* Collapsed top menu */
+    .navbar {
+        padding: 0 1rem;
+    }
+    .navbar-burger {
+        display: inline-block;
+    }
+    .navbar-menu {
+        display: none;
+        position: absolute;
+        top: var(--navbar-height);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        height: auto;
+        padding: 0.5rem 0;
+        background: var(--header-bg);
+        border-bottom: 1px solid var(--border);
+        box-shadow: var(--shadow-md);
+    }
+    .navbar-menu.is-active {
+        display: flex;
+    }
+    .navbar-start,
+    .navbar-end {
+        flex-direction: column;
+        align-items: stretch;
+        height: auto;
+    }
+    .navbar .navbar-item {
+        height: auto;
+        padding: 0.7rem 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.6rem; }
+
+    pre {
+        padding: 1rem;
+        font-size: 12px;
+        border-radius: var(--radius-sm);
+    }
+
+    .doc {
+        padding: 1.25rem 0 2rem;
+    }
+
+    table.tableblock {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .footer {
+        padding: 1.5rem 1rem;
+    }
+    .custom-footer {
+        padding: 2.5rem 1.25rem 1.25rem;
+    }
+    .custom-footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 420px) {
+    .custom-footer-container {
+        grid-template-columns: 1fr;
+    }
+    .footer-brand {
+        grid-column: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
+/* ------------------------------------------------------------
+   18. PRINT
+   ------------------------------------------------------------ */
+@media print {
+    .header,
+    .nav-container,
+    .toolbar,
+    .toc,
+    .custom-footer,
+    .footer,
+    .source-toolbox {
+        display: none !important;
+    }
+    body {
+        background: #fff;
+        color: #000;
+    }
+    .content {
+        padding: 0;
+    }
+    pre {
+        white-space: pre-wrap;
+        box-shadow: none;
+    }
+}
+
+/* ---------- Mobile / tablet: header copy hidden, drawer stays ---------- */
+@media (max-width: 1023px) {
+    .navbar .nav-menu {
+        display: none;
+    }
+
+    /* The theme toggle lives inside .navbar-menu, so keep that visible */
+    .navbar-menu {
+        display: flex;
+        position: static;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        height: 100%;
+        padding: 0;
+        background: none;
+        border: 0;
+        box-shadow: none;
+    }
+    .navbar-start,
+    .navbar-end {
+        flex-direction: row;
+        height: auto;
+    }
+}
+
+/* ---------- Desktop ---------- */
+@media (min-width: 1024px) {
+    /* 1. Sidebar is replaced by the header menu; main uses the full width */
+    .nav-container {
+        display: none;
+    }
+
+    /* 2. The nav-menu copy in the header */
+    .navbar .navbar-end {
+        height: 100%;
+    }
+    .navbar .nav-panel-menu,
+    .navbar .nav-menu {
+        display: block;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: none;
+        font-size: inherit;
+        overflow: visible;
+    }
+    .navbar .nav-menu .title {
+        display: none;
+    }
+    .navbar .nav-menu > .nav-list {
+        display: flex;
+        align-items: stretch;
+        gap: 0.1rem;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* nav.adoc without a .Title produces an empty wrapper <li>. Flatten it. */
+    .navbar .nav-menu > .nav-list > .nav-item:not(:has(> a, > .nav-text)),
+    .navbar .nav-menu > .nav-list > .nav-item:not(:has(> a, > .nav-text)) > .nav-list {
+        display: contents;
+    }
+
+    /* 3. Bar items = top-level entries of nav.adoc (with or without wrapper) */
+    .navbar :is(
+        .nav-menu > .nav-list > .nav-item:has(> a, > .nav-text),
+        .nav-menu > .nav-list > .nav-item:not(:has(> a, > .nav-text)) > .nav-list > .nav-item
+    ) {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin: 0;
+    }
+
+    .navbar :is(
+        .nav-menu > .nav-list > .nav-item:has(> a, > .nav-text),
+        .nav-menu > .nav-list > .nav-item:not(:has(> a, > .nav-text)) > .nav-list > .nav-item
+    ) > :is(.nav-link, .nav-text) {
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 0.85rem;
+        border-radius: 0;
+        color: var(--heading);
+        font-weight: 600;
+        white-space: nowrap;
+        text-decoration: none;
+    }
+
+    .navbar :is(
+        .nav-menu > .nav-list > .nav-item:has(> a, > .nav-text),
+        .nav-menu > .nav-list > .nav-item:not(:has(> a, > .nav-text)) > .nav-list > .nav-item
+    ):hover > :is(.nav-link, .nav-text) {
+        color: var(--accent);
+        background: var(--bg-secondary);
+    }
+
+    /* Current page / group containing it */
+    .navbar .nav-item.is-current-page > .nav-link,
+    .navbar .nav-item.is-active > .nav-text {
+        color: var(--accent);
+        background: none;
+    }
+
+    /* No toggle buttons: dropdowns open on hover / keyboard focus */
+    .navbar .nav-item-toggle {
+        display: none;
+    }
+
+    /* Caret after labels of items that have a dropdown */
+    .navbar :is(
+        .nav-menu > .nav-list > .nav-item:has(> a, > .nav-text),
+        .nav-menu > .nav-list > .nav-item:not(:has(> a, > .nav-text)) > .nav-list > .nav-item
+    ):has(> .nav-list) > :is(.nav-link, .nav-text)::after {
+        content: "";
+        display: inline-block;
+        width: 0.35rem;
+        height: 0.35rem;
+        margin-left: 0.5rem;
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        transform: translateY(-2px) rotate(45deg);
+    }
+
+    /* 4. Dropdown panel (first nested list of a bar item) */
+    .navbar :is(
+        .nav-menu > .nav-list > .nav-item:has(> a, > .nav-text),
+        .nav-menu > .nav-list > .nav-item:not(:has(> a, > .nav-text)) > .nav-list > .nav-item
+    ) > .nav-list {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 250;
+        min-width: 15rem;
+        margin: 0;
+        padding: 0.4rem;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-md);
+    }
+
+    .navbar :is(
+        .nav-menu > .nav-list > .nav-item:has(> a, > .nav-text),
+        .nav-menu > .nav-list > .nav-item:not(:has(> a, > .nav-text)) > .nav-list > .nav-item
+    ):is(:hover, :focus-within) > .nav-list {
+        display: block;
+    }
+
+    /* Entries inside the dropdown */
+    .navbar :is(
+        .nav-menu > .nav-list > .nav-item:has(> a, > .nav-text),
+        .nav-menu > .nav-list > .nav-item:not(:has(> a, > .nav-text)) > .nav-list > .nav-item
+    ) > .nav-list :is(.nav-link, .nav-text) {
+        display: block;
+        height: auto;
+        padding: 0.4rem 0.75rem;
+        color: var(--text-secondary);
+        font-weight: 400;
+        white-space: nowrap;
+        border-radius: var(--radius-sm);
+    }
+    .navbar :is(
+        .nav-menu > .nav-list > .nav-item:has(> a, > .nav-text),
+        .nav-menu > .nav-list > .nav-item:not(:has(> a, > .nav-text)) > .nav-list > .nav-item
+    ) > .nav-list .nav-link:hover {
+        color: var(--accent);
+        background: var(--bg-tertiary);
+    }
+    .navbar :is(
+        .nav-menu > .nav-list > .nav-item:has(> a, > .nav-text),
+        .nav-menu > .nav-list > .nav-item:not(:has(> a, > .nav-text)) > .nav-list > .nav-item
+    ) > .nav-list .nav-item.is-current-page > .nav-link {
+        color: var(--accent);
+        background: var(--sidebar-active);
+        font-weight: 600;
+    }
+
+    /* Group labels inside a dropdown are small headings, not links */
+    .navbar :is(
+        .nav-menu > .nav-list > .nav-item:has(> a, > .nav-text),
+        .nav-menu > .nav-list > .nav-item:not(:has(> a, > .nav-text)) > .nav-list > .nav-item
+    ) > .nav-list .nav-text {
+        color: var(--text-muted);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+    .navbar :is(
+        .nav-menu > .nav-list > .nav-item:has(> a, > .nav-text),
+        .nav-menu > .nav-list > .nav-item:not(:has(> a, > .nav-text)) > .nav-list > .nav-item
+    ) > .nav-list .nav-text::after {
+        content: none;
+    }
+
+    /* Third level and deeper: always open, indented, inside the dropdown */
+    .navbar :is(
+        .nav-menu > .nav-list > .nav-item:has(> a, > .nav-text),
+        .nav-menu > .nav-list > .nav-item:not(:has(> a, > .nav-text)) > .nav-list > .nav-item
+    ) > .nav-list .nav-list {
+        display: block;
+        position: static;
+        min-width: 0;
+        margin: 0 0 0.4rem 0.5rem;
+        padding: 0 0 0 0.25rem;
+        background: none;
+        border: 0;
+        border-left: 1px solid var(--border);
+        box-shadow: none;
+    }
+
+    /* 5. TOC now only needs to clear the single header bar */
+    .toc.sidebar {
+        top: calc(var(--navbar-height) + 1.5rem);
+        max-height: calc(100vh - var(--navbar-height) - 3rem);
+    }
+}

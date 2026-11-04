@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* =========================================
+   CODE CONFIGURATION
+========================================= */
+
+:root {
+    --code-font-family: 'JetBrains Mono', monospace;
+    --code-font-size: 0.9rem;
+    --code-line-height: 1.6;
+
+    --code-line-number: #858585;
+    --code-line-border: #d4d4d4;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --code-line-number: #78869a;
+        --code-line-border: #334155;
+    }
+}
+
+/* =========================================
+   CODE TYPOGRAPHY
+========================================= */
+
+pre,
+pre code,
+.hljs,
+.hljs-ln-code {
+    font-family: var(--code-font-family);
+    font-size: var(--code-font-size);
+    line-height: var(--code-line-height);
+}
+
+:not(pre) > code {
+    font-family: var(--code-font-family);
+}
+
+/* =========================================
+   LINE NUMBERING
+========================================= */
+
+.hljs-ln {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.hljs-ln td {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    vertical-align: top;
+}
+
+.hljs-ln td.hljs-ln-numbers {
+    width: 3.5em;
+    min-width: 3.5em;
+
+    padding: 0 1em 0 0.5em !important;
+
+    text-align: right;
+    user-select: none;
+
+    color: var(--code-line-number);
+    border-right: 1px solid var(--code-line-border);
+}
+
+.hljs-ln-n {
+    display: block;
+    text-align: right;
+}
+
+.hljs-ln td.hljs-ln-code {
+    padding-left: 1.25em !important;
+    white-space: pre;
+}
+
+/* =========================================
+   CODE BLOCK OVERFLOW
+========================================= */
+
+pre {
+    overflow-x: auto;
+}
+
+pre code {
+    white-space: pre;
+}
