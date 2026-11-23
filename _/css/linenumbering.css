@@ -1,0 +1,42 @@
+/* ============================================================
+   INFRAFLEET DOCS - highlight.js line numbers
+   ------------------------------------------------------------
+   Only the line-number gutter lives here. Code typography and
+   colours are provided by style.css (tokens) and code-style.css
+   (rules), so nothing in this file overrides an existing style.
+   ============================================================ */
+
+.hljs-ln {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.hljs-ln td {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    vertical-align: top;
+    font-family: var(--code-font-family);
+    font-size: var(--code-font-size);
+    line-height: var(--code-line-height);
+}
+
+.hljs-ln td.hljs-ln-numbers {
+    width: 3.5em;
+    min-width: 3.5em;
+    padding: 0 1em 0 0.5em !important;
+    text-align: right;
+    user-select: none;
+    color: var(--code-line-number);
+    border-right: 1px solid var(--code-line-border);
+}
+
+.hljs-ln-n {
+    display: block;
+    text-align: right;
+}
+
+.hljs-ln td.hljs-ln-code {
+    padding-left: 1.25em !important;
+    white-space: pre;
+}

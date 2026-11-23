@@ -1,0 +1,11 @@
+/* ============================================================
+   INFRAFLEET DOCS - local overrides
+   ------------------------------------------------------------
+   This file is intentionally empty. It is loaded last so you can
+   add site-specific tweaks here without duplicating (and silently
+   overwriting) rules from style.css, code-style.css or
+   linenumbering.css.
+
+   Theme tokens belong in style.css; code styling belongs in
+   code-style.css; line-number styling belongs in linenumbering.css.
+   ============================================================ */

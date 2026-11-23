@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Deploy a Kind cluster :: InfraFleet</title>
+    <link rel="canonical" href="https://i8t.run/clusters/tools/kind.html">
+    <meta name="generator" content="Antora 3.2.1">
+
+<script>
+    (function () {
+        // Apply the saved theme before the stylesheets are parsed (no flash).
+        try {
+            var theme = localStorage.getItem('antora-theme');
+            if (theme === 'dark' || theme === 'light') {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    })();
+</script>
+
+    <link rel="stylesheet" href="../../_/css/site.css">
+
+<!-- Own stylesheets load AFTER the UI bundle's site.css so they are never
+     silently overridden by it. Order: base -> code font/numbers -> code -> tweaks. -->
+<link rel="stylesheet" href="../../_/css/style.css">
+<link rel="stylesheet" href="../../_/css/linenumbering.css">
+<link rel="stylesheet" href="../../_/css/code-style.css">
+<link rel="stylesheet" href="../../_/css/custom.css">
+
+  </head>
+  <body class="article">
+<div class="navbar">
+    <div class="navbar-brand">
+        <a class="navbar-item brand-name" href="https://i8t.run/">
+                <img class="logo-dark"
+                     src="../../_/img/style/logo.svg"
+                     alt="i8t logo" width="192" height="50">
+                <img class="logo-light"
+                     src="../../_/img/style/logo-light.svg"
+                     alt="i8t logo" width="192" height="50">
+        </a>
+    </div>
+
+    <button type="button" class="nav-toggle" aria-label="Toggle navigation" title="Navigation"></button>
+
+    <div class="navbar-menu">
+        <div class="navbar-end">
+            <div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../../index.html">InfraFleet</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../scenarios/index.html">Scenarios</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../scenarios/chart_museum.html">Chart Museum</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../index.html">Cluster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../distributions/microk8s.html">MicroK8s</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="kind.html">Kind</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tools</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../tools/helm.html">Helm</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+        </div>
+        <button
+                type="button"
+                class="theme-toggle"
+                onclick="toggleAntoraTheme()"
+                aria-label="Toggle dark and light theme"
+                title="Toggle theme"
+        >
+            <span class="theme-toggle-icon" aria-hidden="true">◐</span>
+        </button>
+    </div>
+</div>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../../index.html">InfraFleet</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../scenarios/index.html">Scenarios</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../scenarios/chart_museum.html">Chart Museum</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../index.html">Cluster</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../distributions/microk8s.html">MicroK8s</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="kind.html">Kind</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tools</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../tools/helm.html">Helm</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">InfraFleet</span>
+    <span class="version"></span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../index.html">InfraFleet</a></div>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Deploy a Kind cluster</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>{kind} cluster creates a container-based cluster. So, our actual nodes are containers inside containers. Although, I believe that the <code>kind</code> is the best option to experience <a href="https://k8s.io/">Kubernetes</a> without spending too much time to deploy one or money on hardware. We can have several multi-node clusters just in the expense of your laptop or an old unused personal computer.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_default"><a class="anchor" href="#_default"></a>Default</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>{kind} uses our <a href="../resources/cri.adoc">container runtime interface (CRI)</a> to deploy multiple containers that would be represented as nodes. Then it deploys {K8s} on the created containers. However, this type of installation has its own pros and cons but I believe that it is the fastest way to have multiple clusters on-premise and experience with {k8s} as fastest as possible.</p>
+</div>
+<div class="paragraph">
+<p>We can customize {kind} later on degrade some of those limitations, although accessing a cluster on your laptop or home lab the fastest enough that could help you understand the entire ecosystem of {k8s} is something we should not think twice.</p>
+</div>
+<div class="paragraph">
+<p>The latest document of {kind} is always aligned with the latest changes to it. Although, we can follow the below installation guideline to have our first cluster in our local machine, I believe referring to {kind-install} website for the ultimate installation process or further troubleshooting scenarios.</p>
+</div>
+<div class="paragraph">
+<p>What is i8t.run?
+It is a documentation and scenario-based tutorials to Learn</p>
+</div>
+<div class="listingblock">
+<div class="title">Installing {kind}</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">case "$(uname -m)" in aarch64) arch="arm64" ;; x86_64) arch="amd64" ;; *) echo "Unsupported architecture" &gt;&amp;2; exit 1 ;; esac
+OS=aarch64 &amp;&amp; [ $(uname -m) = aarch64 ] &amp;&amp; sudo curl -Lo /usr/local/bin/kind https://kind.sigs.k8s.io/dl/v0.33.0/kind-linux-arm64
+sudo chmod +x /usr/local/bin/kind
+kind version</code></pre>
+</div>
+</div>
+<div id="cluster_creation" class="listingblock">
+<div class="title">Creating our cluster with default configuration</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kind create cluster --name NAME</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I always like to work neat so I specify a <a href="#cluster_creation">name</a> for my cluster, for example, stage.</p>
+</div>
+<div class="listingblock">
+<div class="title">Listing our nodes (they are just containers 😂)</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kind get nodes --name NAME <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>When we specify name for the cluster creation, to display nodes we need specify <code>--name</code> to the <code>kind</code> command. Unless it looks at default name, <em>kind</em></td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Removing a cluster is as simple as running the following command</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kind delete cluster --name NAME</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_customization"><a class="anchor" href="#_customization"></a>Customization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>One of the limitation of {kind} is <a href="../resources/networking/">port-forwarding</a>. When we want allow external traffic to our cluster we experience limitations since {kind} opens ports just on control-plane nodes. If we, therefore, need to allow traffic into our cluster we require to add the following customization to our cluster.</p>
+</div>
+<div class="listingblock">
+<div class="title">Installing {kind} with custom configuration</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">kind create cluster --name NAME --config</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For further information on the customization visit the {kind-doc}.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Replacements</caption>
+<colgroup>
+<col style="width: 66.6666%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Requirement</th>
+<th class="tableblock halign-left valign-top">Potential direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">General-purpose routing with a straightforward setup</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Traefik</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NGINX-experties or an existing NGINX-centered platform</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">F5 NGINX Ingress Controller</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Advanced API management and policy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kong</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gateway API-first architecture</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Envoy Gateway or another compatible implementation</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<!-- Highlight.js is bundled locally. Its theme comes from code-style.css;
+     loading an external stylesheet here would override that theme. -->
+<script src="../../_/js/theme.js"></script>
+<script src="../../_/js/highlight.min.js"></script>
+<script src="../../_/js/highlightjs-line-numbers.min.js"></script>
+
+<!-- Initialize Highlight.js and line numbering once, after all other UI
+     scripts have finished setting up the code blocks. -->
+<script>
+    function initInfraFleetCodeBlocks() {
+        if (!window.hljs || !window.hljs.initLineNumbersOnLoad) return;
+
+        document.querySelectorAll('pre code').forEach(function (block) {
+            if (!block.classList.contains('hljs')) {
+                hljs.highlightElement(block);
+            }
+        });
+
+        // singleLine: true gives one-line snippets a "1" gutter as well, so
+        // numbering is consistent across every code block on the site.
+        hljs.initLineNumbersOnLoad({ singleLine: true });
+    }
+
+    if (document.readyState === 'complete') {
+        initInfraFleetCodeBlocks();
+    } else {
+        window.addEventListener('load', initInfraFleetCodeBlocks, { once: true });
+    }
+</script>
+
+<footer class="custom-footer">
+    <div class="custom-footer-container">
+
+        <!-- Brand -->
+        <div class="footer-brand">
+            <a href="../../" class="footer-logo">
+                InfraFleet<span>.</span>
+            </a>
+
+            <p class="footer-description">
+                Exploring infrastructure deployment, software engineering,
+                programming languages, system architecture, and modern development.
+            </p>
+
+            <div class="footer-social">
+                <a href="https://github.com/YOUR_USERNAME"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="GitHub">
+                    GitHub
+                </a>
+
+            </div>
+        </div>
+
+        <!-- Documentation -->
+        <div class="footer-column">
+            <h3>Documentation</h3>
+            <ul>
+                <li><a href="../../">Home</a></li>
+            </ul>
+        </div>
+
+        <!-- Resources -->
+        <div class="footer-column">
+            <h3>Resources</h3>
+            <ul>
+                <li><a href="https://github.com/esmaeilmirzaee">GitHub</a></li>
+                <li><a href="https://docs.antora.org/">Antora</a></li>
+                <li><a href="https://asciidoc.org/">AsciiDoc</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>
+            &copy; 2026 InfraFleet.
+            Built with <a href="https://antora.org/">Antora</a>.
+        </p>
+
+        <p class="footer-tagline">
+            Engineering knowledge, one commit at a time.
+        </p>
+    </div>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+  </body>
+</html>

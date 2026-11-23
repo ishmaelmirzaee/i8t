@@ -1,0 +1,281 @@
+/* ============================================================
+   INFRAFLEET DOCS - Code snippet presentation
+   ------------------------------------------------------------
+   This is the ONLY file that styles code blocks, inline code,
+   copy buttons, callouts and syntax highlighting. All colours,
+   fonts and sizes come from the design tokens in style.css, so
+   light, manual dark and automatic dark themes stay in sync.
+   ============================================================ */
+
+/* ---------- Inline code ---------- */
+
+.doc :not(pre) > code,
+.doc :not(pre) > tt,
+:not(pre) > code,
+:not(pre) > tt {
+    color: var(--accent);
+    background: var(--code-inline-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.14em 0.42em;
+    font-family: var(--code-font-family);
+    font-size: 0.85em;
+    overflow-wrap: anywhere;
+}
+
+/* ---------- Fenced / literal code blocks ---------- */
+
+pre {
+    position: relative;
+    overflow-x: auto;
+    background: var(--code-bg) !important;
+    color: var(--code-text);
+    border: 1px solid var(--code-border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0 2rem;
+    font-family: var(--code-font-family);
+    font-size: var(--code-font-size);
+    line-height: var(--code-line-height);
+    tab-size: 4;
+    box-shadow: var(--shadow-sm);
+}
+
+pre code,
+pre code.hljs,
+.hljs {
+    background: transparent !important;
+    color: inherit !important;
+    border: 0 !important;
+    padding: 0 !important;
+    font-family: inherit;
+    font-size: inherit;
+    white-space: pre;
+}
+
+.listingblock,
+.literalblock {
+    position: relative;
+    margin: 1.5rem 0 2rem;
+}
+
+.listingblock pre,
+.literalblock pre {
+    margin: 0;
+}
+
+.listingblock > .title {
+    margin-bottom: 0.4rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Let the language label / copy button escape the scroll container. */
+.listingblock > .content {
+    overflow: visible;
+}
+
+/* Code blocks fill the article column (which is the wide element).
+   They never break out past it, so text, code and panels share one
+   consistent measure. Long lines scroll inside pre instead. */
+.doc .listingblock,
+.doc .literalblock {
+    width: 100%;
+}
+.doc .listingblock > .content > pre,
+.doc .literalblock > .content > pre {
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ---------- Source toolbox and copy button ---------- */
+
+/* Match site.css .doc .source-toolbox so the copy/collapse controls
+   inherit a readable theme colour instead of its hardcoded grey. */
+.doc .source-toolbox {
+    color: var(--text-muted);
+}
+
+.source-toolbox {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.6rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 150ms ease;
+}
+
+.listingblock:hover .source-toolbox,
+.source-toolbox:focus-within {
+    opacity: 1;
+}
+
+.source-lang {
+    color: var(--text-muted);
+    font-family: var(--code-font-family);
+    font-size: 0.75rem;
+    text-transform: lowercase;
+}
+
+.copy-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+}
+
+.copy-button:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* The UI bundle ships a broken copy icon; draw it with CSS instead. */
+.copy-button img {
+    display: none;
+}
+
+.copy-button::before {
+    content: "";
+    width: 0.8rem;
+    height: 0.9rem;
+    border: 2px solid currentColor;
+    border-radius: 2px;
+    box-shadow: 3px -3px 0 -1px var(--bg-elevated), 3px -3px 0 0 currentColor;
+}
+
+.copy-toast {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 0.5rem);
+    display: none;
+    padding: 0.2rem 0.6rem;
+    transform: translateY(-50%);
+    background: var(--heading);
+    color: var(--bg);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+.copy-button.clicked .copy-toast {
+    display: block;
+}
+
+/* ---------- Callout numbers inside code ---------- */
+
+.conum[data-value] {
+    display: inline-block;
+    min-width: 1.3em;
+    height: 1.3em;
+    line-height: 1.3em;
+    text-align: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.75em;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.conum[data-value]::after {
+    content: attr(data-value);
+}
+
+.conum[data-value] + b {
+    display: none;
+}
+
+/* ---------- Syntax highlighting ---------- */
+
+.hljs-comment, .hljs-quote, .cm-comment {
+    color: var(--syntax-comment);
+    font-style: italic;
+}
+.hljs-keyword, .hljs-selector-tag, .hljs-built_in, .cm-keyword {
+    color: var(--syntax-keyword);
+}
+.hljs-string, .hljs-attr, .hljs-template-tag, .cm-string {
+    color: var(--syntax-string);
+}
+.hljs-number, .hljs-literal, .hljs-symbol, .cm-number {
+    color: var(--syntax-number);
+}
+.hljs-title, .hljs-title.function_, .hljs-function, .cm-def {
+    color: var(--syntax-function);
+}
+.hljs-variable, .hljs-params, .hljs-property, .cm-variable {
+    color: var(--syntax-variable);
+}
+.hljs-operator, .hljs-punctuation {
+    color: var(--syntax-operator);
+}
+.hljs-class, .hljs-title.class_, .cm-type {
+    color: var(--syntax-class);
+}
+.hljs-type, .hljs-meta, .hljs-tag {
+    color: var(--syntax-keyword);
+}
+.hljs-addition { color: var(--success); }
+.hljs-deletion { color: var(--danger); }
+
+/* ---------- Code inside admonitions and example blocks ---------- */
+
+.admonitionblock pre,
+.exampleblock pre {
+    background: var(--code-nested-bg) !important;
+    border-color: var(--border-strong);
+    margin: 0.75rem 0;
+}
+
+.admonitionblock .listingblock,
+.admonitionblock .literalblock {
+    margin: 0.75rem 0;
+}
+
+.admonitionblock td.content > .listingblock:last-child,
+.admonitionblock td.content > pre:last-child {
+    margin-bottom: 0;
+}
+
+.admonitionblock :not(pre) > code,
+.exampleblock :not(pre) > code {
+    background: var(--code-inline-nested-bg);
+    border-color: var(--border-strong);
+}
+
+/* Subtle accent that reflects the admonition type */
+.admonitionblock.note pre { border-left: 3px solid var(--info); }
+.admonitionblock.tip pre { border-left: 3px solid var(--success); }
+.admonitionblock.warning pre { border-left: 3px solid var(--warning); }
+.admonitionblock.important pre,
+.admonitionblock.caution pre { border-left: 3px solid var(--danger); }
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+    pre {
+        padding: 1rem;
+        font-size: 0.8rem;
+        border-radius: var(--radius-sm);
+    }
+}
+
+/* ---------- Print ---------- */
+
+@media print {
+    pre {
+        white-space: pre-wrap;
+        box-shadow: none;
+    }
+}
